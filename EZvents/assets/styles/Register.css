@@ -1,0 +1,94 @@
+/* Le fond de la page entière */
+body {
+    background-color: #3b4859;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* La grosse pancarte bleue */
+.form-container {
+    background-color: #00d2ff;
+    padding: 40px 60px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Le gros titre "Register" */
+.form-container h1 {
+    text-align: center;
+    color: black;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+/* Les petits textes au-dessus des champs (générés par Symfony) */
+.form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+/* Les champs où on tape le texte */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: #e0e0e0;
+    font-size: 1.1rem;
+    color: black;
+    box-sizing: border-box;
+}
+
+.form-container input:focus {
+    outline: 2px solid black;
+}
+
+/* Le style spécifique pour ne pas que la case à cocher prenne tout l'écran ! */
+.terms-box {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.terms-box input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.terms-box label {
+    margin-bottom: 0; /* On annule la marge du bas pour l'aligner avec la case */
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+/* Le gros bouton de validation (class="btn") */
+.btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #3b4859; /* J'ai repris la couleur de ton fond d'écran pour le bouton */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2a3441; /* Un peu plus foncé quand on passe la souris */
+}
