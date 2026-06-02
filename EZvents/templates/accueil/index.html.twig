@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}EZvents{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}"
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="homepage-container">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <header class="header-home">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/lucas/Documents/Coda/EZvents/EZvents/src/Controller/AccueilController.php</code></li>
-        <li>Your template at <code>/home/lucas/Documents/Coda/EZvents/EZvents/templates/accueil/index.html.twig</code></li>
-    </ul>
-</div>
+            <form action="#" method="GET" class="search-form">
+                <input type="search" name="q" placeholder="Rechercher un événement, un lieu..." class="search-input">
+                <button type="submit" class="btn-search">Rechercher</button>
+            </form>
+
+            <div class="header-actions">
+                <a href="{{ path('app_create') }}" class="btn btn-create">Créer un événement</a>
+
+                <a href="#" class="profile-link" title="Mon profil">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                    </svg>
+                </a>
+            </div>
+
+        </header>
+
+        <main class="main-content">
+            <h1>Bienvenue sur EZvents ! 👋</h1>
+            <p>Trouvez et créez des événements en quelques clics.</p>
+        </main>
+
+    </div>
 {% endblock %}

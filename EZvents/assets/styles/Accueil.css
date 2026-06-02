@@ -1,0 +1,23 @@
+.header-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Espace entre le bouton et l'icône */
+}
+
+.profile-link {
+    color: #333;
+    transition: color 0.2s;
+}
+
+.profile-link:hover {
+    color: #007bff; /* Change de couleur au survol */
+}
