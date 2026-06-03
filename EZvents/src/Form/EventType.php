@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class EventType extends AbstractType
 {
@@ -40,10 +41,13 @@ class EventType extends AbstractType
                     'Raimbow Six Siege' => 'R6'
                 ]
             ])
-            ->add('date_heure')
+            ->add('date_heure', DateTimeType::class, [
+                'label' => 'Date et heure de l\'événement',
+                'widget' => 'single_text',
+            ])
             ->add('telephone', TelType::class, [
                 'label' => "Numéro de téléphone",
-                'attr' => ['placeholder' => '0612345678'], // 🚀 Ligne 45 nettoyée
+                'attr' => ['placeholder' => '0612345678'],
                 'constraints' => [
                     new Length(
                         min: 10,
@@ -51,7 +55,7 @@ class EventType extends AbstractType
                         exactMessage: 'Le numéro de téléphone doit comporter exactement {{ limit }} chiffres.'
                     ),
                     new Regex(
-                        pattern: '/^(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}$/', // 🚀 Ligne 48 corrigée avec l'argument nommé
+                        pattern: '/^(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}$/',
                         message: 'Veuillez entrer un numéro de téléphone valide.'
                     )
                 ]

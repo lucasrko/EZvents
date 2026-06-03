@@ -21,3 +21,119 @@
 .profile-link:hover {
     color: #007bff; /* Change de couleur au survol */
 }
+/* Section & Grille */
+.events-section {
+    margin-top: 3rem;
+}
+
+.events-section h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Style de la Carte */
+.event-card {
+    background-color: #1e293b; /* Même couleur de carte que ton formulaire */
+    border: 1px solid #334155;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.event-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.event-card-body h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.event-date {
+    color: #6366f1; /* Ta couleur violette */
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+}
+
+.event-desc {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+/* Match / Équipes / Lieu */
+.event-teams {
+    background-color: #0f172a;
+    padding: 0.5rem;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.event-teams .vs {
+    color: #ef4444;
+    margin: 0 0.25rem;
+}
+
+/* Footer de la carte */
+.event-card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161e2e;
+}
+
+.capacity {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.btn-details {
+    color: #ffffff;
+    background-color: #6366f1;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Badges de Jeux */
+.badge-game {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.game-lol { background-color: #cea135; }
+.game-cs2 { background-color: #de9b35; }
+.game-valorant { background-color: #fa4454; }
+.game-fortnite { background-color: #fbe622; color: #000; }

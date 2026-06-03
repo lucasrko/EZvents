@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -44,7 +45,7 @@ class Event
     private ?string $capacite = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?user $organisateur = null;
+    private ?User $organisateur = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
