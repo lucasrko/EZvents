@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}">
+    <style>
+        .details-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+        }
+        .meta-item {
+            font-size: 0.95rem;
+            color: #94a3b8;
+        }
+        .meta-item strong {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+        .event-full-desc {
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="details-container">
+        <a href="{{ path('app_accueil') }}" class="btn-back">← Retour à l'accueil</a>
+
+        <span class="badge-game game-{{ event.categorie }}" style="position: static;">
+        {{ event.categorie|upper }}
+    </span>
+
+        <h1 style="color: #fff; margin-top: 1rem;">{{ event.name }}</h1>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <strong>📅 Date et Heure</strong>
+                {{ event.dateHeure|date('d/m/Y à H:i') }}
+            </div>
+            <div class="meta-item">
+                <strong>📍 Adresse</strong>
+                {{ event.adresse }}
+            </div>
+            <div class="meta-item">
+                <strong>👥 Capacité</strong>
+                {{ event.capacite }} places maximum
+            </div>
+            <div class="meta-item">
+                <strong>📞 Contact Organisateur</strong>
+                <a href="tel:{{ event.telephone }}" style="color: #6366f1;">{{ event.telephone }}</a>
+            </div>
+            {% if event.organisateur %}
+                <div class="meta-item">
+                    <strong>👑 Organisé par</strong>
+                    {{ event.organisateur.pseudo }}
+                </div>
+            {% endif %}
+        </div>
+
+        {% if event.nomEquipe1 and event.nomEquipe2 %}
+            <div class="event-teams" style="font-size: 1.4rem; padding: 1rem; margin: 1.5rem 0;">
+                <span class="team" style="color: #fff;">{{ event.nomEquipe1 }}</span>
+                <span class="vs">VS</span>
+                <span class="team" style="color: #fff;">{{ event.nomEquipe2 }}</span>
+            </div>
+        {% endif %}
+
+        <div class="event-description-section">
+            <h3 style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem;">Description de l'événement</h3>
+            <p class="event-full-desc">
+                {{ event.description ? event.description : "Aucune description fournie pour cet événement." }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

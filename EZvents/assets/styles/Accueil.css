@@ -1,139 +1,311 @@
+/* --- VARIABLES --- */
+:root {
+    --esport-bg: #0f111a;
+    --esport-card: #1a1d29;
+    --esport-card-hover: #222636;
+    --esport-accent: #00d2ff;
+    --esport-accent-hover: #00a3cc;
+    --esport-text: #e2e8f0;
+    --esport-muted: #94a3b8;
+}
+
+/* --- RESET ET GLOBALES --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--esport-bg);
+    color: var(--esport-text);
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    background-image: radial-gradient(circle at 50% 0%, #1a1d29 0%, #0f111a 70%);
+    background-attachment: fixed; /* Garde le fond fixe au défilement */
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* --- STRUCTURE PRINCIPALE --- */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- HEADER --- */
 .header-home {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e3e3e3;
+    padding: 1.5rem 5%;
+    background-color: rgba(26, 29, 41, 0.95);
+    border-bottom: 2px solid var(--esport-accent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
+/* --- BARRE DE RECHERCHE --- */
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    max-width: 500px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--esport-text);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--esport-accent);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
+}
+
+.btn-search {
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    color: var(--esport-accent);
+    border: 1px solid var(--esport-accent);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-search:hover {
+    background-color: var(--esport-accent);
+    color: #000;
+}
+
+/* --- ACTIONS DU HEADER --- */
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem; /* Espace entre le bouton et l'icône */
-}
-
-.profile-link {
-    color: #333;
-    transition: color 0.2s;
-}
-
-.profile-link:hover {
-    color: #007bff; /* Change de couleur au survol */
-}
-/* Section & Grille */
-.events-section {
-    margin-top: 3rem;
-}
-
-.events-section h2 {
-    color: #ffffff;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
 }
 
-/* Style de la Carte */
+.btn-create {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--esport-accent);
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.btn-create:hover {
+    background-color: var(--esport-accent-hover);
+    transform: translateY(-2px);
+}
+
+.profile-link {
+    color: var(--esport-text);
+    display: flex;
+    align-items: center;
+}
+
+.profile-link:hover {
+    color: var(--esport-accent);
+}
+
+/* --- CONTENU PRINCIPAL --- */
+.main-content {
+    padding: 3rem 5%;
+    flex: 1;
+}
+
+.main-content h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-content > p {
+    color: var(--esport-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+/* --- SECTION ÉVÉNEMENTS --- */
+.events-section h2 {
+    font-size: 1.8rem;
+    border-left: 4px solid var(--esport-accent);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+/* Grille responsive */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* --- CARTES D'ÉVÉNEMENTS --- */
 .event-card {
-    background-color: #1e293b; /* Même couleur de carte que ton formulaire */
-    border: 1px solid #334155;
-    border-radius: 10px;
-    overflow: hidden;
+    background-color: var(--esport-card);
+    border-radius: 8px;
+    padding: 1.5rem;
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .event-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 210, 255, 0.3);
+    background-color: var(--esport-card-hover);
+}
+
+/* Badge Catégorie (Jeu) */
+.badge-game {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background-color: var(--esport-accent);
+    color: #000;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3);
 }
 
 .event-card-body {
-    padding: 1.5rem;
-    flex-grow: 1;
+    flex: 1; /* Pousse le footer vers le bas */
 }
 
 .event-card-body h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-    color: #ffffff;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: #fff;
 }
 
 .event-date {
-    color: #6366f1; /* Ta couleur violette */
-    font-size: 0.9rem;
-    margin: 0 0 1rem 0;
+    color: var(--esport-accent);
+    font-size: 0.85rem;
     font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .event-desc {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin-bottom: 1rem;
+    color: var(--esport-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
 }
 
-/* Match / Équipes / Lieu */
+/* Style Équipes VS Lieu */
 .event-teams {
-    background-color: #0f172a;
-    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
     border-radius: 6px;
-    text-align: center;
-    font-size: 0.85rem;
-    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.event-teams .vs {
-    color: #ef4444;
-    margin: 0 0.25rem;
+.team {
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.vs {
+    color: var(--esport-accent);
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: rgba(0, 210, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.location {
+    color: var(--esport-text);
+    font-size: 0.9rem;
 }
 
 /* Footer de la carte */
 .event-card-footer {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid #334155;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #161e2e;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1rem;
 }
 
 .capacity {
-    color: #94a3b8;
+    color: var(--esport-muted);
     font-size: 0.85rem;
 }
 
 .btn-details {
-    color: #ffffff;
-    background-color: #6366f1;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    text-decoration: none;
+    color: var(--esport-text);
     font-size: 0.85rem;
-    font-weight: 600;
-}
-
-/* Badges de Jeux */
-.badge-game {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
+    text-transform: uppercase;
     font-weight: 700;
-    color: #fff;
+    letter-spacing: 0.5px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
-.game-lol { background-color: #cea135; }
-.game-cs2 { background-color: #de9b35; }
-.game-valorant { background-color: #fa4454; }
-.game-fortnite { background-color: #fbe622; color: #000; }
+.btn-details:hover {
+    background-color: var(--esport-accent);
+    color: #000;
+}
+
+.no-events {
+    color: var(--esport-muted);
+    font-style: italic;
+    grid-column: 1 / -1; /* Prend toute la largeur de la grille */
+    text-align: center;
+    padding: 3rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .header-home {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
