@@ -59,7 +59,7 @@
 
                             <div class="event-card-footer">
                                 <span class="capacity">👥 {{ event.capacite }} places</span>
-                                <a href="#" class="btn-details">Voir l'event</a>
+                                <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details">Voir l'event</a>
                             </div>
                         </div>
                     {% else %}

@@ -13,7 +13,6 @@
 body, html {
     height: 100%;
     margin: 0;
-    padding: 0;
 }
 
 body {
@@ -21,65 +20,55 @@ body {
     color: var(--esport-text);
     font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
     background-image: radial-gradient(circle at 50% 0%, #1a1d29 0%, #0f111a 70%);
+
+    /* C'est ceci qui centre le contenu au milieu de la page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* --- CONTENEUR DU FORMULAIRE --- */
-.form-container {
+form {
     background-color: var(--esport-card);
     padding: 2.5rem;
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
     width: 100%;
-    max-width: 600px; /* Plus large pour la création d'événement */
+    /* On force une largeur fixe pour le bloc */
+    width: 350px;
     border-top: 4px solid var(--esport-accent);
-
-    /* Centrage absolu */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    /* Scroll interne si le formulaire est très long */
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-/* Espacement entre les champs générés par form_widget */
-.form-container > form > div {
-    margin-bottom: 1.2rem;
 }
 
 /* --- TYPOGRAPHIE --- */
-.form-container h1 {
+h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 2rem;
-    text-align: left;
+    text-align: center;
     color: #ffffff;
     font-size: 1.5rem;
 }
 
-.form-container label {
+label {
     display: block;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--esport-muted);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1.2rem;
     font-weight: 600;
-    text-align: left;
 }
 
-/* --- CHAMPS DE SAISIE MULTIPLES --- */
-.form-container input[type="text"],
-.form-container input[type="number"],
-.form-container input[type="tel"],
-.form-container input[type="date"],
-.form-container input[type="datetime-local"],
-.form-container select,
-.form-container textarea {
+/* --- CHAMPS DE SAISIE --- */
+.form-control {
     width: 100%;
     padding: 0.8rem 1rem;
     background-color: rgba(0, 0, 0, 0.3);
@@ -89,40 +78,20 @@ body {
     box-sizing: border-box;
     transition: all 0.3s ease;
     font-size: 1rem;
-    text-align: left;
-    font-family: inherit;
-}
-/* Spécifique à la zone de texte (Description) */
-.form-container textarea {
-    min-height: 120px;
-    resize: vertical; /* Permet à l'utilisateur d'agrandir la zone de haut en bas */
 }
 
-/* Spécifique aux menus déroulants (Catégories) */
-.form-container select {
-    appearance: none; /* Enlève la flèche par défaut du navigateur */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300d2ff' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 16px;
-    cursor: pointer;
-}
-
-/* Effet "Glow" au focus */
-.form-container input:focus,
-.form-container select:focus,
-.form-container textarea:focus {
+.form-control:focus {
     outline: none;
     border-color: var(--esport-accent);
     box-shadow: 0 0 12px rgba(0, 210, 255, 0.15);
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* --- BOUTON DE SOUMISSION --- */
+/* --- BOUTON --- */
 .btn-primary {
     width: 100%;
-    margin-top: 1.5rem;
-    padding: 1rem;
+    margin-top: 2.5rem;
+    padding: 0.8rem;
     background-color: var(--esport-accent);
     color: #000000;
     font-weight: 700;
@@ -132,27 +101,19 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
-    text-align: center;
-    font-size: 1rem;
 }
 
 .btn-primary:hover {
     background-color: var(--esport-accent-hover);
 }
 
-.btn-primary:active {
-    transform: scale(0.98);
-}
-
-/* --- GESTION DES ERREURS SYMFONY --- */
-.form-container ul {
-    list-style-type: none;
-    padding: 1rem;
-    margin: 0 0 1.5rem 0;
+.alert-danger {
     background-color: rgba(239, 68, 68, 0.1);
     color: var(--esport-error);
     border: 1px solid var(--esport-error);
+    padding: 1rem;
     border-radius: 4px;
-    text-align: left;
+    margin-bottom: 1.5rem;
     font-size: 0.9rem;
+    text-align: center;
 }
