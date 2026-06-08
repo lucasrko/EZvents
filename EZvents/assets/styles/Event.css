@@ -1,0 +1,52 @@
+.details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+.meta-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #0f172a;
+    border-radius: 8px;
+}
+.meta-item {
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+.meta-item strong {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+.event-full-desc {
+    line-height: 1.6;
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+}
+.btn-back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+}
+/* Style du lien de l'organisateur */
+.organizer-link {
+    color: #6366f1; /* Ta couleur violette signature */
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Effet au survol */
+.organizer-link:hover {
+    color: #818cf8; /* Un violet un poil plus clair */
+    text-decoration: underline; /* Soulignement léger pour montrer que c'est cliquable */
+}

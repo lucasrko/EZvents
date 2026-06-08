@@ -34,7 +34,6 @@ form {
     padding: 2.5rem;
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    width: 100%;
     /* On force une largeur fixe pour le bloc */
     width: 350px;
     border-top: 4px solid var(--esport-accent);

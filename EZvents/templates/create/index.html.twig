@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="form-container">
-        <h1>Créer un nouvel événement 📅</h1>
+        <h1>{{ (isEdit is defined and isEdit) ? "Modifier l'événement ✏️" : "Créer un événement 🎮" }}</h1>
 
         {{ form_start(eventForm, {'method':'POST'}) }}
         {{ form_widget(eventForm) }}

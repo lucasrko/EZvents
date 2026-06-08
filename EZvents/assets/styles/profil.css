@@ -1,0 +1,87 @@
+.profile-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+.profile-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+.profile-avatar {
+    background-color: #6366f1;
+    color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.profile-infos h1 {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+}
+.profile-infos p {
+    margin: 0.2rem 0;
+    color: #94a3b8;
+}
+.my-events-title {
+    color: #fff;
+    border-bottom: 2px solid #334155;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.author-actions {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 0.75rem;
+    border-top: 1px solid #334155;
+    padding-top: 0.75rem;
+}
+
+/* Style de base des boutons du profil */
+.btn-profile-action {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Bouton Modifier (Jaune/Orange Gaming) */
+.btn-edit {
+    background-color: #f59e0b;
+    color: #1e293b;
+}
+
+.btn-edit:hover {
+    background-color: #d97706;
+}
+
+/* Bouton Supprimer (Rouge) */
+.btn-delete {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+}
+
+/* Effet d'enfoncement au clic */
+.btn-profile-action:active {
+    transform: scale(0.97);
+}

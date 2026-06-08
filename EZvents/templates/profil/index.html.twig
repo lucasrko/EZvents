@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil - EZvents{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="profile-container">
+        <a href="{{ path('app_accueil') }}" style="color: #6366f1; text-decoration: none; font-weight: 600;">← Retour à l'accueil</a>
+
+        <div class="profile-card" style="margin-top: 1rem;">
+            <div class="profile-avatar">
+                {{ user.pseudo|slice(0, 2) }}
+            </div>
+            <div class="profile-infos">
+                <h1>@{{ user.pseudo }}</h1>
+                <p><strong>Nom complet :</strong> {{ user.firstname }} {{ user.name }}</p>
+                <p><strong>Email :</strong> {{ user.email }}</p>
+            </div>
+        </div>
+
+        <h2 class="my-events-title">Mes Événements Créés ({{ events|length }}) 📢</h2>
+
+        <div class="events-grid">
+            {% for event in events %}
+                <div class="event-card">
+                    <span class="badge-game game-{{ event.categorie }}">{{ event.categorie|upper }}</span>
+                    <div class="event-card-body">
+                        <h3>{{ event.name }}</h3>
+                        <p class="event-date">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
+                        <p class="event-desc">{{ event.description|slice(0, 80) }}...</p>
+                    </div>
+                    <div class="event-card-footer">
+                        <span class="capacity">👥 {{ event.capacite }} places</span>
+                        <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details">Voir les détails</a>
+                    </div>
+                    {% if app.user and user.id == app.user.id %}
+                        <div class="author-actions">
+
+                            <a href="{{ path('app_edit', {'id': event.id}) }}" class="btn-profile-action btn-edit">
+                                Modifier ✏️
+                            </a>
+
+                            <a href="{{ path('app_delete', {'id': event.id}) }}"
+                               class="btn-profile-action btn-delete"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');">
+                                Supprimer 🗑️
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p style="color: #94a3b8; grid-column: 1 / -1; text-align: center; margin-top: 2rem;">
+                    Vous n'avez pas encore créé d'événement. <a href="{{ path('app_create') }}" style="color: #6366f1;">Créez votre premier événement dès maintenant !</a>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
