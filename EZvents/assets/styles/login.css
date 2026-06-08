@@ -34,6 +34,10 @@ form {
     padding: 2.5rem;
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+<<<<<<< HEAD
+=======
+    width: 100%;
+>>>>>>> origin/main
     /* On force une largeur fixe pour le bloc */
     width: 350px;
     border-top: 4px solid var(--esport-accent);
@@ -59,7 +63,6 @@ label {
     display: block;
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     color: var(--esport-muted);
     margin-bottom: 0.5rem;
     margin-top: 1.2rem;
@@ -95,7 +98,6 @@ label {
     color: #000000;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
