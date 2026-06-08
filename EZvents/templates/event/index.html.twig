@@ -3,9 +3,7 @@
 {% block title %}{{ event.name }}{% endblock %}
 
 {% block stylesheets %}
-<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('styles/Event.css') }}">
-=======
     <link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}">
     <style>
         .details-container {
@@ -48,7 +46,6 @@
             font-weight: 600;
         }
     </style>
->>>>>>> origin/main
 {% endblock %}
 
 {% block body %}
@@ -81,13 +78,10 @@
             {% if event.organisateur %}
                 <div class="meta-item">
                     <strong>👑 Organisé par</strong>
-<<<<<<< HEAD
                     <a href="{{ path('app_profil', {'pseudo': event.organisateur.pseudo}) }}" class="organizer-link">
                         {{ event.organisateur.pseudo }}
                     </a>
-=======
                     {{ event.organisateur.pseudo }}
->>>>>>> origin/main
                 </div>
             {% endif %}
         </div>
