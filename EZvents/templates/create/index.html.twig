@@ -3,7 +3,7 @@
 {% block title %}EZvents{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/create.css') }}"
+    <link rel="stylesheet" href="{{ asset('styles/create.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -17,3 +17,120 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addressInput = document.querySelector('.js-address-input');
+            const cityInput = document.querySelector('.js-city-input');
+            const zipInput = document.querySelector('.js-zipcode-input');
+
+            // ==========================================
+            // 1. LOGIQUE POUR LE CHAMP ADRESSE
+            // ==========================================
+            if (addressInput) {
+                addressInput.parentNode.style.position = 'relative';
+                const addressContainer = document.createElement('div');
+                addressContainer.classList.add('autocomplete-suggestions');
+                addressContainer.style.display = 'none';
+                addressInput.parentNode.appendChild(addressContainer);
+
+                addressInput.addEventListener('input', function() {
+                    const value = this.value.trim();
+                    if (value.length < 5) {
+                        addressContainer.style.display = 'none';
+                        return;
+                    }
+
+                    fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(value)}&limit=5`)
+                        .then(response => response.json())
+                        .then(data => {
+                            addressContainer.innerHTML = '';
+                            if (!data.features || data.features.length === 0) {
+                                addressContainer.style.display = 'none';
+                                return;
+                            }
+
+                            data.features.forEach(feature => {
+                                const div = document.createElement('div');
+                                div.classList.add('suggestion-item');
+                                const labelAdresse = feature.properties.name;
+                                const city = feature.properties.city;
+                                const zipCode = feature.properties.postcode;
+
+                                div.innerHTML = `<span>📍 ${feature.properties.label}</span>`;
+                                div.addEventListener('click', function() {
+                                    addressInput.value = labelAdresse;
+                                    if (cityInput) cityInput.value = city;
+                                    if (zipInput) zipInput.value = zipCode;
+                                    addressContainer.style.display = 'none';
+                                });
+                                addressContainer.appendChild(div);
+                            });
+
+                            addressContainer.style.top = (addressInput.offsetTop + addressInput.offsetHeight) + 'px';
+                            addressContainer.style.left = addressInput.offsetLeft + 'px';
+                            addressContainer.style.width = addressInput.offsetWidth + 'px';
+                            addressContainer.style.display = 'block';
+                        });
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (e.target !== addressInput) addressContainer.style.display = 'none';
+                });
+            }
+
+            // ==========================================
+            // 2. LOGIQUE POUR LE CHAMP VILLE (Ton test actuel !)
+            // ==========================================
+            if (cityInput) {
+                cityInput.parentNode.style.position = 'relative';
+                const cityContainer = document.createElement('div');
+                cityContainer.classList.add('autocomplete-suggestions');
+                cityContainer.style.display = 'none';
+                cityInput.parentNode.appendChild(cityContainer);
+
+                cityInput.addEventListener('input', function() {
+                    const value = this.value.trim();
+                    if (value.length < 3) {
+                        cityContainer.style.display = 'none';
+                        return;
+                    }
+
+                    fetch(`https://geo.api.gouv.fr/communes?nom=${value}&fields=nom,code,codesPostaux&limit=5`)
+                        .then(response => response.json())
+                        .then(data => {
+                            cityContainer.innerHTML = '';
+                            if (data.length === 0) {
+                                cityContainer.style.display = 'none';
+                                return;
+                            }
+
+                            data.forEach(commune => {
+                                const div = document.createElement('div');
+                                div.classList.add('suggestion-item');
+                                const zipCode = commune.codesPostaux ? commune.codesPostaux[0] : '';
+
+                                div.innerHTML = `<span>📍 ${commune.nom}</span> <span class="suggestion-zip">${zipCode}</span>`;
+                                div.addEventListener('click', function() {
+                                    cityInput.value = commune.nom;
+                                    if (zipInput && zipCode) zipInput.value = zipCode;
+                                    cityContainer.style.display = 'none';
+                                });
+                                cityContainer.appendChild(div);
+                            });
+
+                            cityContainer.style.top = (cityInput.offsetTop + cityInput.offsetHeight) + 'px';
+                            cityContainer.style.left = cityInput.offsetLeft + 'px';
+                            cityContainer.style.width = cityInput.offsetWidth + 'px';
+                            cityContainer.style.display = 'block';
+                        });
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (e.target !== cityInput) cityContainer.style.display = 'none';
+                });
+            }
+        });
+    </script>
+{% endblock %}

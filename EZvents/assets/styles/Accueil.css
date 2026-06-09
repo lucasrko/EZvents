@@ -309,3 +309,7 @@ a {
         justify-content: space-between;
     }
 }
+.game-bs { background-color: #eab308; }   /* Brawl Stars - Jaune */
+.game-cod { background-color: #78350f; }  /* Call of Duty - Marron/Militaire */
+.game-R6 { background-color: #0284c7; }   /* R6 - Bleu tactique */
+.game-tekken { background-color: #dc2626; } /* Tekken - Rouge feu */

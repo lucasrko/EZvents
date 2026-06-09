@@ -21,7 +21,18 @@ class EventType extends AbstractType
         $builder
             ->add('name',null,['label'=>'Nom'])
             ->add('description')
-            ->add('adresse',null,['label'=>"Adresse de l'Event"])
+            ->add('ville', null, [
+                'label' => "Ville",
+                'attr' => ['class' => 'js-city-input', 'autocomplete' => 'off']
+            ])
+            ->add('adresse', null, [
+                'label' => "Adresse de l'Event",
+                'attr' => ['class' => 'js-address-input', 'autocomplete' => 'off'] // 🚀 On désactive l'autocomplétion du navigateur
+            ])
+            ->add('code_postal', null, [ // 🚀 Mis à jour sans "e"
+                'label' => "Code Postal",
+                'attr' => ['class' => 'js-zipcode-input']
+            ])
             ->add('categorie', ChoiceType::class, [
                 'label' => 'Selectionnez le jeu',
                 'choices' => [

@@ -11,9 +11,40 @@
 
         <header class="header-home">
 
-            <form action="{{ path('app_search') }}" method="GET" class="search-form">
-                <input type="search" name="q" aria-label="Rechercher un événement" placeholder="Rechercher un événement, un lieu..." class="search-input">
-                <button type="submit" class="btn-search">Rechercher</button>
+            <form action="{{ path('app_search') }}" method="GET" class="search-form-advanced">
+                <div class="search-main-row">
+                    <input type="search" name="q" value="{{ app.request.query.get('q') }}" placeholder="Rechercher par nom d'événement..." class="search-input" aria-label="Nom de l'événement">
+                    <button type="submit" class="btn-search">Rechercher 🔍</button>
+                </div>
+
+                <div class="search-filters-row" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+
+                    <input type="text" name="ville" value="{{ app.request.query.get('ville') }}" placeholder="Ville" class="search-input-sub js-city-input" style="flex: 1; min-width: 120px;">
+
+                    <input type="text" name="cp" value="{{ app.request.query.get('cp') }}" placeholder="Code Postal" class="search-input-sub js-zipcode-input" style="flex: 1; min-width: 100px;">
+
+                    <input type="text" name="equipe" value="{{ app.request.query.get('equipe') }}" placeholder="Nom d'équipe (VS)" class="search-input-sub" style="flex: 1; min-width: 150px;">
+
+                    <select name="jeu" class="search-select" style="flex: 1; min-width: 150px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+                        <option value="">Tous les jeux 🎮</option>
+                        <option value="cs2" {{ app.request.query.get('jeu') == 'cs2' ? 'selected' : '' }}>Counter-Strike 2</option>
+                        <option value="lol" {{ app.request.query.get('jeu') == 'lol' ? 'selected' : '' }}>League of Legends</option>
+                        <option value="valorant" {{ app.request.query.get('jeu') == 'valorant' ? 'selected' : '' }}>Valorant</option>
+                        <option value="rl" {{ app.request.query.get('jeu') == 'rl' ? 'selected' : '' }}>Rocket League</option>
+                        <option value="fortnite" {{ app.request.query.get('jeu') == 'fortnite' ? 'selected' : '' }}>Fortnite</option>
+                        <option value="bs" {{ app.request.query.get('jeu') == 'bs' ? 'selected' : '' }}>Brawl Stars</option>
+                        <option value="cod" {{ app.request.query.get('jeu') == 'cod' ? 'selected' : '' }}>Call Of Duty</option>
+                        <option value="dota 2" {{ app.request.query.get('jeu') == 'dota 2' ? 'selected' : '' }}>Dota 2</option>
+                        <option value="overwatch" {{ app.request.query.get('jeu') == 'overwatch' ? 'selected' : '' }}>Overwatch</option>
+                        <option value="Street Fighter" {{ app.request.query.get('jeu') == 'Street Fighter' ? 'selected' : '' }}>Street Fighter</option>
+                        <option value="tekken" {{ app.request.query.get('jeu') == 'tekken' ? 'selected' : '' }}>Tekken</option>
+                        <option value="tft" {{ app.request.query.get('jeu') == 'tft' ? 'selected' : '' }}>Team Fight Tactics</option>
+                        <option value="apex" {{ app.request.query.get('jeu') == 'apex' ? 'selected' : '' }}>Apex Legends</option>
+                        <option value="R6" {{ app.request.query.get('jeu') == 'R6' ? 'selected' : '' }}>Rainbow Six Siege</option>
+                    </select>
+
+                    <input type="date" name="date" value="{{ app.request.query.get('date') }}" class="search-date" style="background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+                </div>
             </form>
 
             <div class="header-actions">
