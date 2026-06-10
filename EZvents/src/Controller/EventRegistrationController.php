@@ -27,7 +27,7 @@ final class EventRegistrationController extends AbstractController
         else {
             if ($event->getPlacesRestantes() <= 0) {
                 $this->addFlash('danger', 'Désolé, cet événement est complet ! 🚫');
-                return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
+                return $this->redirectToRoute('app_event', ['id' => $event->getId()]);
             }
 
             $event->addParticipant($user);
