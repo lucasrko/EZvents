@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -41,8 +42,8 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo_equipe_2 = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $capacite = null;
+    #[ORM\Column]
+    private ?int $capacite = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?User $organisateur = null;
@@ -55,6 +56,15 @@ class Event
 
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[ORM\JoinTable(name: "event_user")]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -169,24 +179,24 @@ class Event
         return $this;
     }
 
-    public function getCapacite(): ?string
+    public function getCapacite(): ?int
     {
         return $this->capacite;
     }
 
-    public function setCapacite(string $capacite): static
+    public function setCapacite(int $capacite): static
     {
         $this->capacite = $capacite;
 
         return $this;
     }
 
-    public function getOrganisateur(): ?user
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?user $organisateur): static
+    public function setOrganisateur(?User $organisateur): static
     {
         $this->organisateur = $organisateur;
 
@@ -226,5 +236,38 @@ class Event
         $this->ville = $ville;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(User $participant): static
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): static
+    {
+        $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getPlacesRestantes(): int
+    {
+        if ($this->capacite === null) {
+            return 0;
+        }
+
+        return $this->capacite - $this->participants->count();
     }
 }
