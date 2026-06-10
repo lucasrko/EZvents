@@ -1,0 +1,65 @@
+name: Symfony CI (EZvents)
+
+# 🚀 Déclenche le test à chaque push ou pull request sur la branche principale
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  symfony-tests:
+    runs-on: ubuntu-latest
+
+    # 🐘 On démarre un vrai service PostgreSQL pour que Doctrine puisse valider les schémas
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: app_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # On attend que Postgres soit prêt avant de lancer la suite
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # 1. On récupère le code du dépôt Git
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. On installe la bonne version de PHP (ajuste si tu es en PHP 8.2 ou 8.3)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_pgsql, pdo
+          coverage: none
+
+      # 3. On vérifie que le fichier composer.json n'a pas d'erreurs
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      # 4. On installe les dépendances PHP (Composer)
+      - name: Install Dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      # 5. On configure la variable d'environnement de la DB pour l'environnement de test GitHub
+      - name: Set up Environment Variables
+        run: |
+          echo "DATABASE_URL=postgresql://postgres:password@127.0.0.1:5432/app_test?serverVersion=16&charset=utf8" >> .env.local
+          echo "APP_ENV=test" >> .env.local
+
+      # 6. 🔍 ÉTAPE CRUCIALE : On vérifie que les entités Doctrine sont valides et synchronisées
+      - name: Check Doctrine Mapping & Schema Validity
+        run: |
+          php bin/console doctrine:schema:validate --skip-sync
+
+    # 7. Si tu as des tests automatisés (PHPUnit), on les lance ici
+    # - name: Run PHPUnit Tests
+    #   run: vendor/bin/phpunit
