@@ -100,4 +100,37 @@
             </p>
         </div>
     </div>
+    <div class="registration-section" style="margin-top: 20px; padding: 15px; background: #1e293b; border-radius: 8px; border: 1px solid #334155;">
+        <h3>Inscription 🎟️</h3>
+
+        {% if event.getPlacesRestantes <= 0 %}
+            <p style="color: #ef4444; font-weight: bold;">⚠️ Événement Complet ! ({{ event.participants.count }}/{{ event.capacite }} places)</p>
+        {% else %}
+            <p style="color: #10b981;">Places restantes : <strong>{{ event.getPlacesRestantes }}</strong> / {{ event.capacite }}</p>
+        {% endif %}
+
+        {% if not app.user %}
+            <a href="{{ path('app_login') }}" class="btn btn-secondary" style="display: inline-block; margin-top: 10px;">Connectez-vous pour vous inscrire</a>
+        {% else %}
+
+            <form action="{{ path('app_event_inscription', {'id': event.id}) }}" method="POST" style="margin-top: 10px;">
+                {% if event.participants.contains(app.user) %}
+                    <button type="submit" class="btn" style="background-color: #ef4444; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
+                        Se désinscrire ❌
+                    </button>
+                {% else %}
+                    {% if event.getPlacesRestantes <= 0 %}
+                        <button type="button" class="btn" style="background-color: #64748b; color: #cbd5e1; border: none; padding: 10px 15px; border-radius: 4px; cursor: not-allowed;" disabled>
+                            Complet 🚫
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn" style="background-color: #6366f1; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
+                            S'inscrire 🎉
+                        </button>
+                    {% endif %}
+                {% endif %}
+            </form>
+
+        {% endif %}
+    </div>
 {% endblock %}
