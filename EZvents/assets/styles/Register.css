@@ -1,94 +1,188 @@
-/* Le fond de la page entière */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-light: #f8fafc;
+
+    /* 🚀 Rendu plus clair pour passer le test de contraste */
+    --text-muted: #cbd5e1;
+
+    /* 🚀 Bleu assombri pour un contraste parfait avec le texte blanc */
+    --accent-blue: #2563eb;
+    --accent-focus: #4f46e5;
+    --border-color: #475569;
+
+    /* 🚀 Rouge un peu plus clair pour bien ressortir sur le fond sombre */
+    --error-color: #fca5a5;
+    --error-border: #ef4444;
+}
+
+/* 📱 Base Mobile First (Styles pour smartphones par défaut) */
 body {
-    background-color: #3b4859;
-    font-family: sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: system-ui, -apple-system, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 1rem;
 }
 
-/* La grosse pancarte bleue */
 .form-container {
-    background-color: #00d2ff;
-    padding: 40px 60px;
-    border-radius: 15px;
-    width: 400px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Le gros titre "Register" */
-.form-container h1 {
-    text-align: center;
-    color: black;
-    margin-top: 0;
-    margin-bottom: 30px;
-    font-size: 2.2rem;
-}
-
-/* Les petits textes au-dessus des champs (générés par Symfony) */
-.form-container label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-}
-
-/* Les champs où on tape le texte */
-.form-container input[type="text"],
-.form-container input[type="password"],
-.form-container input[type="email"] {
+    background-color: var(--bg-card);
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: none;
-    background-color: #e0e0e0;
-    font-size: 1.1rem;
-    color: black;
-    box-sizing: border-box;
+    max-width: 600px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
 }
 
-.form-container input:focus {
-    outline: 2px solid black;
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-align: center;
 }
 
-/* Le style spécifique pour ne pas que la case à cocher prenne tout l'écran ! */
-.terms-box {
-    margin-bottom: 20px;
+.auth-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* 🛠️ Layout élastique (Grid) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 seule colonne sur mobile */
+    gap: 1rem;
+}
+
+.form-group {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
-.terms-box input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+.form-group.full-width {
+    margin-top: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.form-input {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    border: 2px solid var(--border-color);
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+/* ♿ Accessibilité : Navigation clavier ultra-visible */
+.form-input:focus {
+    outline: 3px solid rgba(99, 102, 241, 0.5);
+    border-color: var(--accent-focus);
+}
+
+.form-hint {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+/* ❌ Feedback Erreurs Adapté */
+.form-error-message {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.4rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--error-border); /* Les daltoniens voient la ligne si la nuance de rouge est dure à capter */
+}
+
+.alert-danger {
+    background-color: #451a1a;
+    border: 2px solid var(--error-border);
+    color: #fca5a5;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* 🔄 Case à cocher */
+.terms-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.form-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
     cursor: pointer;
 }
 
-.terms-box label {
-    margin-bottom: 0; /* On annule la marge du bas pour l'aligner avec la case */
-    font-size: 1rem;
-    font-weight: normal;
+.form-checkbox-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    flex: 1;
+    cursor: pointer;
 }
 
-/* Le gros bouton de validation (class="btn") */
+/* 🔘 Bouton d'action */
 .btn {
     width: 100%;
-    padding: 15px;
-    background-color: #3b4859; /* J'ai repris la couleur de ton fond d'écran pour le bouton */
+    background-color: var(--accent-blue);
     color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s;
 }
 
-.btn:hover {
-    background-color: #2a3441; /* Un peu plus foncé quand on passe la souris */
+.btn:hover, .btn:focus {
+    background-color: #1d4ed8;
+    outline: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 🕶️ Utilitaires Lecteurs d'Écran */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 💻 Écrans Medium/Large (Tablettes et Ordinateurs) */
+@media (min-width: 640px) {
+    .form-container {
+        padding: 2.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr; /* 🚀 Magie du responsive : passe automatiquement en 2 colonnes sur PC ! */
+        gap: 1.25rem;
+    }
 }

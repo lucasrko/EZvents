@@ -1,26 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription - EZvents{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Register.css') }}">
 {% endblock %}
+
 {% block body %}
-    <div class="form-container">
-        <h1>Register</h1>
-        {{ form_errors(registrationForm) }}
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.name) }}
-            {{ form_row(registrationForm.firstname) }}
-            {{ form_row(registrationForm.pseudo) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.telephone) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-            }) }}
-        <div class="terms-box">
-            {{ form_row(registrationForm.agreeTerms) }}
+    <main class="auth-container" id="main-content">
+        <div class="form-container" role="region" aria-labelledby="registration-title">
+
+            <h1 id="registration-title">Créer un compte 🎉</h1>
+            <p class="auth-subtitle">Rejoignez EZvents pour participer aux tournois et événements.</p>
+
+            {# Messages d'erreurs globaux #}
+            {% if not registrationForm.vars.valid %}
+                <div class="alert alert-danger" role="alert" aria-live="assertive">
+                    ⚠️ Le formulaire contient des erreurs. Veuillez les vérifier ci-dessous.
+                </div>
+            {% endif %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'accessible-form', 'novalidate': 'novalidate'}}) }}
+
+            <div class="form-grid">
+                {# Nom #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.name, {'attr': {'class': 'form-input', 'autocomplete': 'family-name', 'placeholder': 'Ex: Dupont', 'aria-required': 'true'}}) }}
+                    {% if form_errors(registrationForm.name) %}
+                        <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.name)|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Prénom #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.firstname, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-input', 'autocomplete': 'given-name', 'placeholder': 'Ex: Jean', 'aria-required': 'true'}}) }}
+                    {% if form_errors(registrationForm.firstname) %}
+                        <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.firstname)|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Pseudo #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.pseudo, 'Pseudo Gaming', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.pseudo, {'attr': {'class': 'form-input', 'autocomplete': 'nickname', 'placeholder': 'Ex: NeoPlayer_X', 'aria-required': 'true'}}) }}
+                    {% if form_errors(registrationForm.pseudo) %}
+                        <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.pseudo)|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Téléphone #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.telephone, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.telephone, {'attr': {'class': 'form-input', 'autocomplete': 'tel', 'placeholder': '06 00 00 00 00', 'aria-required': 'true'}}) }}
+                    {% if form_errors(registrationForm.telephone) %}
+                        <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.telephone)|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Email (Prend toute la largeur) #}
+            <div class="form-group full-width">
+                {{ form_label(registrationForm.email, 'Adresse Email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input', 'autocomplete': 'email', 'placeholder': 'exemple@domaine.com', 'aria-required': 'true'}}) }}
+                {% if form_errors(registrationForm.email) %}
+                    <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.email)|striptags }}</div>
+                {% endif %}
+            </div>
+
+            {# Mot de passe #}
+            <div class="form-group full-width">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input', 'aria-describedby': 'password-hint', 'aria-required': 'true'}}) }}
+                <small id="password-hint" class="form-hint">Le mot de passe doit contenir au moins 6 caractères.</small>
+                {% if form_errors(registrationForm.plainPassword) %}
+                    <div class="form-error-message" aria-live="polite"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.plainPassword)|striptags }}</div>
+                {% endif %}
+            </div>
+
+            {# Case CGU #}
+            <div class="terms-box">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-checkbox', 'aria-required': 'true'}}) }}
+                {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions générales d\'utilisation du site', {'label_attr': {'class': 'form-checkbox-label'}}) }}
+                {% if form_errors(registrationForm.agreeTerms) %}
+                    <div class="form-error-message" aria-live="polite" style="display: block; width: 100%;"><span class="sr-only">Erreur :</span> {{ form_errors(registrationForm.agreeTerms)|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn" aria-label="S'inscrire et créer un compte sur EZvents">Créer mon compte 🎉</button>
+
+            {{ form_end(registrationForm) }}
         </div>
-            <button type="submit" class="btn">Register</button>
-        {{ form_end(registrationForm) }}
-    </div>
-    {% endblock %}
+    </main>
+{% endblock %}
