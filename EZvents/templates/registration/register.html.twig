@@ -91,6 +91,9 @@
             <button type="submit" class="btn" aria-label="S'inscrire et créer un compte sur EZvents">Créer mon compte 🎉</button>
 
             {{ form_end(registrationForm) }}
+            <div class="auth-footer">
+                <p>Déjà un compte ? <a href="{{ path('app_login') }}" aria-label="Aller sur la page d'inscription">Connectez-vous ici</a></p>
+            </div>
         </div>
     </main>
 {% endblock %}

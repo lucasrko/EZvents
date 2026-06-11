@@ -186,3 +186,26 @@ h1 {
         gap: 1.25rem;
     }
 }
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem; /* Un peu d'espace après le bouton ou la checkbox */
+    font-size: 0.9rem;
+}
+
+.auth-footer p {
+    margin: 0;
+    color: var(--text-light);
+}
+
+.auth-footer a {
+    color: #60a5fa; /* Un bleu plus clair très lisible sur fond sombre pour les daltoniens */
+    text-decoration: none;
+    font-weight: 600;
+    transition: text-decoration 0.2s ease;
+}
+
+/* ♿ Accessibilité : Soulignement au survol et focus clavier */
+.auth-footer a:hover, .auth-footer a:focus {
+    text-decoration: underline;
+    outline: none;
+}
