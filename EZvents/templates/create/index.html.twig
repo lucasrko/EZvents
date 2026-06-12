@@ -113,11 +113,15 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // 🚀 Fonction globale qui initialise tes écoutes d'API Gouv
+        function initAutocomplete() {
             const addressInput = document.querySelector('.js-address-input');
             const cityInput = document.querySelector('.js-city-input');
-            // Mise à jour de la classe cible pour le script JS de l'API gouv
             const zipInput = document.querySelector('.js-zipcode-input');
+
+            // 🛡️ Sécurité : Évite les doublons d'écouteurs si Turbo recharge le script
+            if (addressInput && addressInput.dataset.autocompleteInitialized) return;
+            if (addressInput) addressInput.dataset.autocompleteInitialized = "true";
 
             // ==========================================
             // 1. LOGIQUE POUR LE CHAMP ADRESSE
@@ -229,6 +233,20 @@
                     if (e.target !== cityInput) cityContainer.style.display = 'none';
                 });
             }
-        });
+        }
+
+        // ==========================================
+        // 🚀 GESTION DES ÉCOUTEURS EXTÉRIEURS (TURBO FIX)
+        // ==========================================
+
+        // 1. Gère le chargement direct ou le rafraîchissement manuel ($F5$)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAutocomplete);
+        } else {
+            initAutocomplete();
+        }
+
+        // 2. Gère la navigation fluide AJAX de Symfony Turbo Drive
+        document.addEventListener('turbo:load', initAutocomplete);
     </script>
 {% endblock %}

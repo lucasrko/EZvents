@@ -71,7 +71,7 @@
 
         {# Module d'inscription #}
         <section class="registration-section" aria-labelledby="registration-title">
-            <h2 id="registration-title">Inscription 🎟️</h2>
+            <h2 id="registration-title">Inscription</h2>
 
             <div class="registration-status" aria-live="polite">
                 {% if event.getPlacesRestantes <= 0 %}
@@ -91,16 +91,16 @@
                     <form action="{{ path('app_event_inscription', {'id': event.id}) }}" method="POST">
                         {% if event.participants.contains(app.user) %}
                             <button type="submit" class="btn-submit-action btn-danger-action">
-                                Se désinscrire ❌
+                                Se désinscrire
                             </button>
                         {% else %}
                             {% if event.getPlacesRestantes <= 0 %}
                                 <button type="button" class="btn-submit-action btn-disabled-action" disabled>
-                                    Complet 🚫
+                                    Complet
                                 </button>
                             {% else %}
                                 <button type="submit" class="btn-submit-action btn-success-action">
-                                    S'inscrire 🎉
+                                    S'inscrire
                                 </button>
                             {% endif %}
                         {% endif %}

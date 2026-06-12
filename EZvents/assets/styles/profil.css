@@ -1,87 +1,197 @@
+/* 🎨 VARIABLES ACCESSIBILITÉ & CONTRASTES */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --accent-indigo: #6366f1;
+    --accent-indigo-hover: #818cf8;
+    --border-slate: #475569;
+
+    /* Boutons de gestion (Couleurs contrastées validées WCAG AA) */
+    --color-edit: #d97706;        /* Ambre foncé pour texte blanc lisible */
+    --color-edit-hover: #b45309;
+    --color-delete: #dc2626;      /* Rouge vif accessible */
+    --color-delete-hover: #b91c1c;
+    --focus-ring: #00d2ff;
+}
+
+/* --- LOGIQUE DU CONTENEUR --- */
 .profile-container {
-    max-width: 900px;
-    margin: 3rem auto;
+    max-width: 1200px;
+    margin: 2rem auto;
     padding: 0 1rem;
+    box-sizing: border-box;
 }
+
+/* Bouton Retour */
+.btn-back-home {
+    display: inline-block;
+    color: var(--accent-indigo-hover);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+}
+
+.btn-back-home:hover, .btn-back-home:focus {
+    color: #a5b4fc;
+    text-decoration: underline;
+}
+
+/* --- EN-TÊTE DU PROFIL --- */
 .profile-card {
-    background-color: #1e293b;
-    border: 1px solid #334155;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-slate);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
+    flex-direction: column; /* Aligné verticalement sur mobile */
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-bottom: 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
 .profile-avatar {
-    background-color: #6366f1;
-    color: white;
-    width: 80px;
-    height: 80px;
+    background-color: var(--accent-indigo);
+    color: #ffffff;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.75rem;
+    font-weight: 800;
     text-transform: uppercase;
-}
-.profile-infos h1 {
-    margin: 0 0 0.5rem 0;
-    color: #fff;
-}
-.profile-infos p {
-    margin: 0.2rem 0;
-    color: #94a3b8;
-}
-.my-events-title {
-    color: #fff;
-    border-bottom: 2px solid #334155;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-.author-actions {
-    display: flex;
-    gap: 0.75rem;
-    width: 100%;
-    margin-top: 0.75rem;
-    border-top: 1px solid #334155;
-    padding-top: 0.75rem;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
 }
 
-/* Style de base des boutons du profil */
+.profile-infos h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.my-events-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    border-left: 4px solid var(--accent-indigo);
+    padding-left: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+/* ♿ Focus clavier universel et hyper visible */
+a:focus, button:focus, .btn-profile-action:focus {
+    outline: 3px solid var(--focus-ring) !important;
+    outline-offset: 2px;
+}
+
+/* --- STRUCTURE INTERNE DES CARTES AVEC ACTIONS --- */
+.author-actions {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: auto; /* Force l'alignement tout en bas du bloc parent */
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 2; /* Reste cliquable par-dessus l'overlay d'image */
+}
+
 .btn-profile-action {
     flex: 1;
     text-align: center;
-    padding: 0.5rem;
-    border-radius: 6px;
+    padding: 0.55rem 0.25rem;
+    border-radius: 4px;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-transform: uppercase;
+    transition: background-color 0.2s, transform 0.1s;
+    box-sizing: border-box;
 }
 
-/* Bouton Modifier (Jaune/Orange Gaming) */
 .btn-edit {
-    background-color: #f59e0b;
-    color: #1e293b;
+    background-color: var(--color-edit);
+    color: #ffffff; /* Passé en blanc pour corriger le contraste par rapport à ta version */
 }
+.btn-edit:hover { background-color: var(--color-edit-hover); }
 
-.btn-edit:hover {
-    background-color: #d97706;
-}
-
-/* Bouton Supprimer (Rouge) */
 .btn-delete {
-    background-color: #ef4444;
+    background-color: var(--color-delete);
     color: #ffffff;
 }
+.btn-delete:hover { background-color: var(--color-delete-hover); }
 
-.btn-delete:hover {
-    background-color: #dc2626;
+.btn-profile-action:active {
+    transform: scale(0.96);
 }
 
-/* Effet d'enfoncement au clic */
-.btn-profile-action:active {
-    transform: scale(0.97);
-}gt
+/* --- ÉTAT VIDE (AUCUN ÉVÉNEMENT) --- */
+.no-events-profile {
+    color: var(--text-muted);
+    font-style: italic;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid var(--border-slate);
+}
+
+.create-first-link {
+    color: var(--accent-indigo-hover);
+    text-decoration: none;
+    font-weight: 700;
+}
+.create-first-link:hover {
+    text-decoration: underline;
+}
+
+/* --- CONFIGURATION DU RESPONSIVE --- */
+
+/* 📋 Écrans intermédiaires (Tablettes, grands smartphones) */
+@media (min-width: 600px) {
+    .profile-card {
+        flex-direction: row; /* Avatar et Pseudo s'alignent côte à côte */
+        padding: 2rem;
+        justify-content: flex-start;
+        gap: 2rem;
+    }
+    .profile-infos h1 {
+        text-align: left;
+    }
+}
+
+/* ==========================================================
+   🖼️ COPIE DES PROPRIÉTÉS COMPACTES ACCUEIL DÉJÀ CONFIGURÉES
+   (Pour ne pas casser tes images de fond ni tes badges)
+   ========================================================== */
+.event-card.has-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.event-card.has-background::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.90) 50%, rgba(15, 23, 42, 1) 100%);
+    z-index: 1;
+}
+.mini-badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    background-color: var(--accent-indigo);
+    color: #ffffff;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    border-radius: 4px;
+    text-transform: uppercase;
+    z-index: 2;
+}
