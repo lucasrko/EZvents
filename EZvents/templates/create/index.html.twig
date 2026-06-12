@@ -1,20 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EZvents{% endblock %}
+{% block title %}{{ (isEdit is defined and isEdit) ? "Modifier l'événement" : "Créer un événement" }} - EZvents{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/create.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="form-container">
-        <h1>{{ (isEdit is defined and isEdit) ? "Modifier l'événement ✏️" : "Créer un événement 🎮" }}</h1>
+    <main class="auth-container" id="main-content">
+        <div class="form-container" role="region" aria-labelledby="form-title">
 
-        {{ form_start(eventForm, {'method':'POST'}) }}
-        {{ form_widget(eventForm) }}
-        <button type="submit" class="btn btn-primary">Publier l'événement</button>
-        {{ form_end(eventForm) }}
-    </div>
+            <h1 id="form-title">{{ (isEdit is defined and isEdit) ? "Modifier l'événement" : "Créer un événement" }}</h1>
+
+            {# Gestion globale des erreurs du formulaire #}
+            {% if not eventForm.vars.valid %}
+                <div class="alert-danger" role="alert" aria-live="assertive">
+                    ⚠️ Le formulaire contient des erreurs. Veuillez vérifier les champs saisis.
+                </div>
+            {% endif %}
+
+            {{ form_start(eventForm, {'method':'POST', 'attr': {'novalidate': 'novalidate', 'class': 'accessible-form'}}) }}
+
+            {# Nom de l'événement #}
+            <div class="form-group">
+                {{ form_label(eventForm.name, 'Nom de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(eventForm.name, {'attr': {'class': 'form-input', 'placeholder': 'Ex: Tournoi Major Paris', 'aria-required': 'true'}}) }}
+                {{ form_errors(eventForm.name) }}
+            </div>
+
+            {# Catégorie (Jeu) #}
+            <div class="form-group">
+                {{ form_label(eventForm.categorie, 'Jeu', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(eventForm.categorie, {'attr': {'class': 'form-select', 'aria-required': 'true'}}) }}
+                {{ form_errors(eventForm.categorie) }}
+            </div>
+
+            {# Description #}
+            <div class="form-group">
+                {{ form_label(eventForm.description, 'Description de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(eventForm.description, {'attr': {'class': 'form-textarea', 'placeholder': 'Détaillez le planning, les récompenses...', 'aria-required': 'true'}}) }}
+                {{ form_errors(eventForm.description) }}
+            </div>
+
+            {# Équipes #}
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    {{ form_label(eventForm.nom_equipe_1, 'Équipe 1', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.nom_equipe_1, {'attr': {'class': 'form-input', 'placeholder': 'Ex: Karmine Corp'}}) }}
+                    {{ form_errors(eventForm.nom_equipe_1) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(eventForm.nom_equipe_2, 'Équipe 2', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.nom_equipe_2, {'attr': {'class': 'form-input', 'placeholder': 'Ex: Team Vitality'}}) }}
+                    {{ form_errors(eventForm.nom_equipe_2) }}
+                </div>
+            </div>
+
+            {# Adresse #}
+            <div class="form-group">
+                {{ form_label(eventForm.adresse, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(eventForm.adresse, {'attr': {'class': 'form-input js-address-input', 'placeholder': 'Rechercher une adresse...', 'aria-required': 'true'}}) }}
+                {{ form_errors(eventForm.adresse) }}
+            </div>
+
+            {# Ville & Code Postal #}
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    {{ form_label(eventForm.ville, 'Ville', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.ville, {'attr': {'class': 'form-input js-city-input', 'placeholder': 'Ex: Paris', 'aria-required': 'true'}}) }}
+                    {{ form_errors(eventForm.ville) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(eventForm.code_postal, 'Code Postal', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.code_postal, {'attr': {'class': 'form-input js-zipcode-input', 'placeholder': 'Ex: 75001', 'aria-required': 'true'}}) }}
+                    {{ form_errors(eventForm.code_postal) }}
+                </div>
+            </div>
+
+            {# Date/Heure & Capacité #}
+            <div class="form-grid-2col">
+                <div class="form-group">
+                    {{ form_label(eventForm.date_heure, 'Date et Heure', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.date_heure, {'attr': {'class': 'form-input', 'aria-required': 'true'}}) }}
+                    {{ form_errors(eventForm.date_heure) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(eventForm.capacite, 'Nombre de places maximum', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(eventForm.capacite, {'attr': {'class': 'form-input', 'aria-required': 'true'}}) }}
+                    {{ form_errors(eventForm.capacite) }}
+                </div>
+            </div>
+
+            {# Téléphone #}
+            <div class="form-group">
+                {{ form_label(eventForm.telephone, 'Numéro de téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(eventForm.telephone, {'attr': {'class': 'form-input', 'placeholder': '0612345678', 'aria-required': 'true'}}) }}
+                {{ form_errors(eventForm.telephone) }}
+            </div>
+
+            <button type="submit" class="btn-primary">
+                {{ (isEdit is defined and isEdit) ? "Enregistrer les modifications" : "Publier l'événement" }}
+            </button>
+
+            {{ form_end(eventForm) }}
+        </div>
+    </main>
 {% endblock %}
 
 {% block javascripts %}
@@ -23,6 +116,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const addressInput = document.querySelector('.js-address-input');
             const cityInput = document.querySelector('.js-city-input');
+            // Mise à jour de la classe cible pour le script JS de l'API gouv
             const zipInput = document.querySelector('.js-zipcode-input');
 
             // ==========================================
@@ -32,6 +126,7 @@
                 addressInput.parentNode.style.position = 'relative';
                 const addressContainer = document.createElement('div');
                 addressContainer.classList.add('autocomplete-suggestions');
+                addressContainer.setAttribute('role', 'listbox');
                 addressContainer.style.display = 'none';
                 addressInput.parentNode.appendChild(addressContainer);
 
@@ -54,6 +149,7 @@
                             data.features.forEach(feature => {
                                 const div = document.createElement('div');
                                 div.classList.add('suggestion-item');
+                                div.setAttribute('role', 'option');
                                 const labelAdresse = feature.properties.name;
                                 const city = feature.properties.city;
                                 const zipCode = feature.properties.postcode;
@@ -81,12 +177,13 @@
             }
 
             // ==========================================
-            // 2. LOGIQUE POUR LE CHAMP VILLE (Ton test actuel !)
+            // 2. LOGIQUE POUR LE CHAMP VILLE
             // ==========================================
             if (cityInput) {
                 cityInput.parentNode.style.position = 'relative';
                 const cityContainer = document.createElement('div');
                 cityContainer.classList.add('autocomplete-suggestions');
+                cityContainer.setAttribute('role', 'listbox');
                 cityContainer.style.display = 'none';
                 cityInput.parentNode.appendChild(cityContainer);
 
@@ -109,6 +206,7 @@
                             data.forEach(commune => {
                                 const div = document.createElement('div');
                                 div.classList.add('suggestion-item');
+                                div.setAttribute('role', 'option');
                                 const zipCode = commune.codesPostaux ? commune.codesPostaux[0] : '';
 
                                 div.innerHTML = `<span>📍 ${commune.nom}</span> <span class="suggestion-zip">${zipCode}</span>`;

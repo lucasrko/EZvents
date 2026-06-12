@@ -1,52 +1,347 @@
-.details-container {
-    max-width: 800px;
+/* 🎨 VARIABLES SÉCURISÉES (CONTRASTES ÉLEVÉS) */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-inner: #0f172a;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --primary-indigo: #6366f1;
+    --primary-indigo-hover: #818cf8;
+    --border-slate: #334155;
+    --color-success: #10b981;
+    --color-success-bg: #064e3b;
+    --color-danger: #ef4444;
+    --color-danger-bg: #451a1a;
+    --focus-ring: #00d2ff;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+
+    /* 🚀 Configuration pour l'image de fond globale */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* L'image reste fixe pendant que l'utilisateur scrolle */
+    position: relative;
+}
+
+/* ==========================================================
+   🖤 LE FONDU NOIR GLOBAL (OVERLAY PRO)
+   Garantit que tout le site reste sombre et lisible par-dessus l'image
+   ========================================================== */
+body::before {
+    content: '';
+    position: fixed; /* Reste collé à l'écran */
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Dégradé radial sombre pour assombrir les côtés et le fond */
+    background: radial-gradient(circle at 50% 0%, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.95) 80%);
+    z-index: -1; /* Se place DERRIÈRE tout ton contenu (navbar, cartes, etc.) */
+}
+
+/* ==========================================================
+   🖼️ MAPPING DES IMAGES DE FOND DE PAGE (DYNAMIQUE)
+   Applique la photo sur le body si la page possède le badge du jeu
+   ========================================================== */
+
+/* Si le badge est présent dans la page, le CSS va remonter l'image sur le fond grâce à :has() */
+body:has(.badge-game.game-valorant) { background-image: url('../images/bgs/valo.webp'); }
+body:has(.badge-game.game-tekken) { background-image: url('../images/bgs/tekken.webp'); }
+body:has(.badge-game.game-tft) { background-image: url('../images/bgs/tft.webp'); }
+body:has(.badge-game.game-apex) { background-image: url('../images/bgs/apex.webp'); }
+body:has(.badge-game.game-bs) { background-image: url('../images/bgs/bs.webp'); }
+body:has(.badge-game.game-cod) { background-image: url('../images/bgs/cod.webp'); }
+body:has(.badge-game.game-cs2) { background-image: url('../images/bgs/cs2.webp'); }
+body:has(.badge-game.game-dota2) { background-image: url('../images/bgs/dota2.webp'); }
+body:has(.badge-game.game-fortnite) { background-image: url('../images/bgs/fortnite.webp'); }
+body:has(.badge-game.game-lol) { background-image: url('../images/bgs/lol.webp'); }
+body:has(.badge-game.game-overwatch) { background-image: url('../images/bgs/overwatch.webp'); }
+body:has(.badge-game.game-r6) { background-image: url('../images/bgs/r6.webp'); }
+body:has(.badge-game.game-rl) { background-image: url('../images/bgs/rl.webp'); }
+body:has(.badge-game.game-streetfighter) { background-image: url('../images/bgs/st6.webp'); }
+/* --- STRUCTURE ET ALIGNEMENT (MOBILE-FIRST) --- */
+.details-main-container {
+    max-width: 1100px;
     margin: 2rem auto;
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 2.5rem;
-}
-.meta-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    margin: 2rem 0;
-    padding: 1rem;
-    background-color: #0f172a;
-    border-radius: 8px;
+    box-sizing: border-box;
 }
-.meta-item {
-    font-size: 0.95rem;
-    color: #94a3b8;
+
+/* --- LE CONTENEUR PRINCIPAL DES DÉTAILS --- */
+.details-container {
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-slate);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
 }
-.meta-item strong {
-    display: block;
+
+.details-container h1 {
     color: #ffffff;
-    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
 }
-.event-full-desc {
-    line-height: 1.6;
-    color: #cbd5e1;
-    font-size: 1.1rem;
-    margin-top: 1.5rem;
-}
+
 .btn-back {
     display: inline-block;
     margin-bottom: 1.5rem;
-    color: #6366f1;
+    color: var(--primary-indigo-hover);
     text-decoration: none;
     font-weight: 600;
-}
-/* Style du lien de l'organisateur */
-.organizer-link {
-    color: #6366f1; /* Ta couleur violette signature */
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.2s ease, text-decoration 0.2s ease;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
-/* Effet au survol */
-.organizer-link:hover {
-    color: #818cf8; /* Un violet un poil plus clair */
-    text-decoration: underline; /* Soulignement léger pour montrer que c'est cliquable */
+.btn-back:hover, .btn-back:focus {
+    color: #a5b4fc;
+    text-decoration: underline;
+}
+
+.btn-back:focus, a:focus, button:focus {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.event-header-badge {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+/* --- DESIGN DES LABELS ET VALEURS (META INFO) --- */
+.meta-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background-color: var(--bg-inner);
+    border-radius: 8px;
+    border: 1px solid var(--border-slate);
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+/* Libellé/Label principal de la donnée */
+.meta-label {
+    display: block;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+/* Donnée textuelle affichée sous le label */
+.meta-value {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.contact-link, .organizer-link {
+    color: var(--primary-indigo-hover);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+    width: fit-content;
+}
+
+.contact-link:hover, .organizer-link:hover {
+    color: #a5b4fc;
+    text-decoration: underline;
+}
+
+/* --- BANDEAU DU MATCH AVEC MINI-LABELS --- */
+.event-match-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--bg-inner);
+    border: 1px solid var(--border-slate);
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+.team-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Label discret pour situer l'équipe 1 et 2 */
+.meta-label-sm {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.team-name {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.vs-badge {
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.15);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    align-self: center;
+    margin-top: 1rem; /* Aligne le VS à hauteur des noms d'équipes */
+}
+
+/* --- DESCRIPTION --- */
+.event-description-section h2 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border-slate);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.event-full-desc {
+    line-height: 1.6;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin: 0;
+    white-space: pre-line;
+}
+
+/* --- SECTION INSCRIPTION --- */
+.registration-section {
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-slate);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.registration-section h2 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--border-slate);
+    padding-bottom: 0.5rem;
+}
+
+.status-full {
+    color: #fca5a5;
+    background-color: var(--color-danger-bg);
+    border: 1px solid var(--color-danger);
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.status-available {
+    color: #a7f3d0;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.status-available strong {
+    font-size: 1.2rem;
+}
+
+.registration-action {
+    margin-top: 1.25rem;
+}
+
+.btn-auth-redirect {
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: var(--text-main);
+    border: 2px solid var(--border-slate);
+    padding: 0.85rem;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color 0.2s;
+}
+
+.btn-auth-redirect:hover, .btn-auth-redirect:focus {
+    border-color: var(--text-main);
+}
+
+.btn-submit-action {
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-success-action {
+    background-color: var(--primary-indigo);
+    color: #ffffff;
+}
+
+.btn-success-action:hover, .btn-success-action:focus {
+    background-color: var(--primary-indigo-hover);
+}
+
+.btn-danger-action {
+    background-color: var(--color-danger);
+    color: #ffffff;
+}
+
+.btn-danger-action:hover, .btn-danger-action:focus {
+    background-color: #dc2626;
+}
+
+.btn-disabled-action {
+    background-color: #64748b;
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+/* --- MULTI-COLONNES SUR GRAND ÉCRAN --- */
+@media (min-width: 768px) {
+    .details-main-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .details-container {
+        flex: 2;
+        padding: 2.5rem;
+    }
+
+    .registration-section {
+        flex: 1;
+        position: sticky;
+        top: 40px;
+    }
+
+    .meta-info {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
 }

@@ -1,121 +1,122 @@
-/* --- VARIABLES --- */
+/* 🎨 VARIABLES ACCESSIBILITÉ HAUT CONTRASTE (Harmonisé avec Accueil & Inscription) */
 :root {
-    --esport-bg: #0f111a;
-    --esport-card: #1a1d29;
-    --esport-accent: #00d2ff;
-    --esport-accent-hover: #00a3cc;
-    --esport-text: #e2e8f0;
-    --esport-muted: #94a3b8;
-    --esport-error: #ef4444;
+    --esport-bg: #0f172a;
+    --esport-card: #1e293b;
+    --esport-accent: #2563eb;       /* Bleu roi conforme aux normes d'accessibilité daltonisme */
+    --esport-accent-hover: #1d4ed8; /* Bleu plus soutenu au survol */
+    --esport-accent-focus: #4f46e5;/* Indigo vif pour le focus clavier */
+    --esport-text: #f8fafc;
+    --esport-muted: #cbd5e1;       /* Gris éclairci pour un meilleur contraste de lecture */
+    --esport-error: #fca5a5;       /* Rouge clair pour fond sombre */
+    --esport-error-border: #ef4444;
 }
 
-/* --- MISE EN PAGE GLOBALE --- */
+/* --- MISE EN PAGE GLOBALE RESPONSIVE --- */
 body, html {
-    height: 100%;
     margin: 0;
     padding: 0;
-}
-
-body {
     background-color: var(--esport-bg);
     color: var(--esport-text);
-    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-    background-image: radial-gradient(circle at 50% 0%, #1a1d29 0%, #0f111a 70%);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 📱 Conteneur élastique moderne (Remplace le positionnement Absolute problématique sur mobile) */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%);
+    background-attachment: fixed;
 }
 
 /* --- CONTENEUR DU FORMULAIRE --- */
 .form-container {
     background-color: var(--esport-card);
-    padding: 2.5rem;
-    border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 600px; /* Plus large pour la création d'événement */
+    max-width: 650px; /* Largeur optimale pour la lecture sur PC */
     border-top: 4px solid var(--esport-accent);
-
-    /* Centrage absolu */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* Scroll interne si le formulaire est très long */
-    max-height: 90vh;
-    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-/* Espacement entre les champs générés par form_widget */
-.form-container > form > div {
-    margin-bottom: 1.2rem;
+/* --- CONFIGURATION DES GRILLES DE CHAMPS (Côte à côte sur PC, empilés sur Mobile) --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+.form-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 colonne par défaut sur téléphone */
+    gap: 0;
+}
+
+@media (min-width: 640px) {
+    .form-grid-2col {
+        grid-template-columns: 1fr 1fr; /* 🚀 Aligne sur 2 colonnes dès qu'on a la place (Tablette/PC) */
+        gap: 1.25rem;
+    }
 }
 
 /* --- TYPOGRAPHIE --- */
 .form-container h1 {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
+    font-weight: 800;
     margin-top: 0;
     margin-bottom: 2rem;
-    text-align: left;
+    text-align: center;
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 
-.form-container label {
-    display: block;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--esport-muted);
-    margin-bottom: 0.4rem;
+.form-label {
+    font-size: 0.9rem;
+    color: var(--esport-text);
+    margin-bottom: 0.5rem;
     font-weight: 600;
-    text-align: left;
 }
 
-/* --- CHAMPS DE SAISIE MULTIPLES --- */
-.form-container input[type="text"],
-.form-container input[type="number"],
-.form-container input[type="tel"],
-.form-container input[type="date"],
-.form-container input[type="datetime-local"],
-.form-container select,
-.form-container textarea {
+/* --- CHAMPS DE SAISIE MUTIPLES ACCESSIBLES --- */
+.form-input, .form-select, .form-textarea {
     width: 100%;
     padding: 0.8rem 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--esport-accent-hover); /* Bordure renforcée pour l'accessibilité visuelle */
     color: var(--esport-text);
-    border-radius: 4px;
+    border-radius: 6px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s, box-shadow 0.2s;
     font-size: 1rem;
-    text-align: left;
     font-family: inherit;
 }
-/* Spécifique à la zone de texte (Description) */
-.form-container textarea {
+
+/* Zone de texte (Description) */
+.form-textarea {
     min-height: 120px;
-    resize: vertical; /* Permet à l'utilisateur d'agrandir la zone de haut en bas */
+    resize: vertical;
 }
 
-/* Spécifique aux menus déroulants (Catégories) */
-.form-container select {
-    appearance: none; /* Enlève la flèche par défaut du navigateur */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300d2ff' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+/* Menu déroulant (Catégories) */
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2360a5fa' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 16px;
     cursor: pointer;
+    padding-right: 2.5rem;
 }
 
-/* Effet "Glow" au focus */
-.form-container input:focus,
-.form-container select:focus,
-.form-container textarea:focus {
-    outline: none;
-    border-color: var(--esport-accent);
-    box-shadow: 0 0 12px rgba(0, 210, 255, 0.15);
-    background-color: rgba(0, 0, 0, 0.5);
+/* ♿ Accessibilité : Navigation au clavier (Focus) ultra-visible */
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: 3px solid rgba(99, 102, 241, 0.5);
+    border-color: var(--esport-accent-focus);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* --- BOUTON DE SOUMISSION --- */
@@ -124,65 +125,85 @@ body {
     margin-top: 1.5rem;
     padding: 1rem;
     background-color: var(--esport-accent);
-    color: #000000;
+    color: #ffffff; /* Texte en blanc pour un contraste maximal (Ratio supérieur à 4.5:1) */
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: background-color 0.2s, outline 0.2s;
     text-align: center;
     font-size: 1rem;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
     background-color: var(--esport-accent-hover);
+    outline: 3px solid rgba(255, 255, 255, 0.2);
 }
 
-.btn-primary:active {
-    transform: scale(0.98);
-}
-
-/* --- GESTION DES ERREURS SYMFONY --- */
-.form-container ul {
+/* --- GESTION DES ERREURS SYMFONY (`form_errors`) --- */
+.form-container form ul {
     list-style-type: none;
-    padding: 1rem;
-    margin: 0 0 1.5rem 0;
-    background-color: rgba(239, 68, 68, 0.1);
+    padding: 0.5rem 0.75rem;
+    margin: 0.4rem 0 0 0;
     color: var(--esport-error);
-    border: 1px solid var(--esport-error);
-    border-radius: 4px;
-    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--esport-error-border); /* Indicateur visuel sans s'appuyer uniquement sur la couleur */
+}
+
+/* Alerte d'erreur globale */
+.alert-danger {
+    background-color: #451a1a;
+    color: var(--esport-error);
+    border: 2px solid var(--esport-error-border);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
     font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
 }
-.autocomplete-container {
-    position: relative;
-}
+
+/* --- AUTOCOMPLÉTION ACCESSIBLE (API ADRESSE / GEO) --- */
 .autocomplete-suggestions {
     position: absolute;
     z-index: 1000;
-    border: 1px solid #334155;
-    background-color: #1e293b; /* Couleur sombre pour coller à ton thème */
+    border: 2px solid var(--border-color);
+    background-color: var(--esport-card);
     border-radius: 6px;
-    width: 100%;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     max-height: 200px;
     overflow-y: auto;
     margin-top: 4px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
+
 .suggestion-item {
-    padding: 10px 14px;
+    padding: 12px 14px;
     cursor: pointer;
-    color: #cbd5e1;
+    color: var(--esport-text);
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
 }
-.suggestion-item:hover {
+
+.suggestion-item:hover, .suggestion-item:focus {
     background-color: #334155;
-    color: #fff;
+    outline: none;
 }
+
 .suggestion-zip {
-    color: #6366f1; /* Ta couleur violette */
-    font-size: 0.9rem;
+    color: #818cf8; /* Violet clair contrasté pour le code postal */
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Ajustements espacements pour l'affichage interne */
+@media (min-width: 640px) {
+    .form-container {
+        padding: 2.5rem;
+    }
 }

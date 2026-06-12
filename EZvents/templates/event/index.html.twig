@@ -1,136 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ event.name }}{% endblock %}
+{% block title %}{{ event.name }} - EZvents{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/Event.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}">
-    <style>
-        .details-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 2.5rem;
-        }
-        .meta-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-            padding: 1rem;
-            background-color: #0f172a;
-            border-radius: 8px;
-        }
-        .meta-item {
-            font-size: 0.95rem;
-            color: #94a3b8;
-        }
-        .meta-item strong {
-            display: block;
-            color: #ffffff;
-            margin-bottom: 0.25rem;
-        }
-        .event-full-desc {
-            line-height: 1.6;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-        }
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            color: #6366f1;
-            text-decoration: none;
-            font-weight: 600;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('styles/Event.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="details-container">
-        <a href="{{ path('app_accueil') }}" class="btn-back">← Retour à l'accueil</a>
+    <main class="details-main-container" id="main-content">
 
-        <span class="badge-game game-{{ event.categorie }}" style="position: static;">
-        {{ event.categorie|upper }}
-    </span>
+        {# Fiche principale de l'événement #}
+        <article class="details-container" aria-labelledby="event-title">
 
-        <h1 style="color: #fff; margin-top: 1rem;">{{ event.name }}</h1>
+            <a href="{{ path('app_accueil') }}" class="btn-back" aria-label="Retourner à la page d'accueil">← Retour à l'accueil</a>
 
-        <div class="meta-info">
-            <div class="meta-item">
-                <strong>📅 Date et Heure</strong>
-                {{ event.dateHeure|date('d/m/Y à H:i') }}
+            <div class="event-header-badge">
+                <span class="badge-game game-{{ event.categorie|lower|replace({' ': ''}) }}">{{ event.categorie|upper }}</span>
             </div>
-            <div class="meta-item">
-                <strong>📍 Adresse</strong>
-                {{ event.adresse }}
-            </div>
-            <div class="meta-item">
-                <strong>👥 Capacité</strong>
-                {{ event.capacite }} places maximum
-            </div>
-            <div class="meta-item">
-                <strong>📞 Contact Organisateur</strong>
-                <a href="tel:{{ event.telephone }}" style="color: #6366f1;">{{ event.telephone }}</a>
-            </div>
-            {% if event.organisateur %}
+
+            <h1 id="event-title">{{ event.name }}</h1>
+
+            {# Grille d'informations avec étiquettes de métadonnées #}
+            <div class="meta-info">
                 <div class="meta-item">
-                    <strong>👑 Organisé par</strong>
-                    <a href="{{ path('app_profil', {'pseudo': event.organisateur.pseudo}) }}" class="organizer-link">
-                        {{ event.organisateur.pseudo }}
-                    </a>
+                    <span class="meta-label">📅 Date et Heure</span>
+                    <span class="meta-value">{{ event.dateHeure|date('d/m/Y à H:i') }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">📍 Adresse</span>
+                    <span class="meta-value">{{ event.adresse }}, {{ event.codePostal }} {{ event.ville }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">📞 Contact Organisateur</span>
+                    <a href="tel:{{ event.telephone }}" class="contact-link meta-value">{{ event.telephone }}</a>
+                </div>
+                {% if event.organisateur %}
+                    <div class="meta-item">
+                        <span class="meta-label">👑 Organisé par</span>
+                        <a href="{{ path('app_profil', {'pseudo': event.organisateur.pseudo}) }}" class="organizer-link meta-value">
+                            {{ event.organisateur.pseudo }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Affichage de l'affiche du match (VS) #}
+            {% if event.nomEquipe1 and event.nomEquipe2 %}
+                <div class="event-match-banner" role="region" aria-label="Affiche du match">
+                    <div class="team-block">
+                        <span class="meta-label-sm">Équipe 1</span>
+                        <span class="team-name">{{ event.nomEquipe1 }}</span>
+                    </div>
+                    <span class="vs-badge" aria-label="contre">VS</span>
+                    <div class="team-block">
+                        <span class="meta-label-sm">Équipe 2</span>
+                        <span class="team-name">{{ event.nomEquipe2 }}</span>
+                    </div>
                 </div>
             {% endif %}
-        </div>
 
-        {% if event.nomEquipe1 and event.nomEquipe2 %}
-            <div class="event-teams" style="font-size: 1.4rem; padding: 1rem; margin: 1.5rem 0;">
-                <span class="team" style="color: #fff;">{{ event.nomEquipe1 }}</span>
-                <span class="vs">VS</span>
-                <span class="team" style="color: #fff;">{{ event.nomEquipe2 }}</span>
-            </div>
-        {% endif %}
+            {# Section description #}
+            <section class="event-description-section" aria-labelledby="desc-title">
+                <h2 id="desc-title">Description de l'événement</h2>
+                <p class="event-full-desc">
+                    {{ event.description ? event.description : "Aucune description fournie pour cet événement." }}
+                </p>
+            </section>
+        </article>
 
-        <div class="event-description-section">
-            <h3 style="color: #fff; border-bottom: 1px solid #334155; padding-bottom: 0.5rem;">Description de l'événement</h3>
-            <p class="event-full-desc">
-                {{ event.description ? event.description : "Aucune description fournie pour cet événement." }}
-            </p>
-        </div>
-    </div>
-    <div class="registration-section" style="margin-top: 20px; padding: 15px; background: #1e293b; border-radius: 8px; border: 1px solid #334155;">
-        <h3>Inscription 🎟️</h3>
+        {# Module d'inscription #}
+        <section class="registration-section" aria-labelledby="registration-title">
+            <h2 id="registration-title">Inscription 🎟️</h2>
 
-        {% if event.getPlacesRestantes <= 0 %}
-            <p style="color: #ef4444; font-weight: bold;">⚠️ Événement Complet ! ({{ event.participants.count }}/{{ event.capacite }} places)</p>
-        {% else %}
-            <p style="color: #10b981;">Places restantes : <strong>{{ event.getPlacesRestantes }}</strong> / {{ event.capacite }}</p>
-        {% endif %}
-
-        {% if not app.user %}
-            <a href="{{ path('app_login') }}" class="btn btn-secondary" style="display: inline-block; margin-top: 10px;">Connectez-vous pour vous inscrire</a>
-        {% else %}
-
-            <form action="{{ path('app_event_inscription', {'id': event.id}) }}" method="POST" style="margin-top: 10px;">
-                {% if event.participants.contains(app.user) %}
-                    <button type="submit" class="btn" style="background-color: #ef4444; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
-                        Se désinscrire ❌
-                    </button>
+            <div class="registration-status" aria-live="polite">
+                {% if event.getPlacesRestantes <= 0 %}
+                    <p class="status-full">⚠️ Événement Complet ! ({{ event.participants.count }}/{{ event.capacite }} places)</p>
                 {% else %}
-                    {% if event.getPlacesRestantes <= 0 %}
-                        <button type="button" class="btn" style="background-color: #64748b; color: #cbd5e1; border: none; padding: 10px 15px; border-radius: 4px; cursor: not-allowed;" disabled>
-                            Complet 🚫
-                        </button>
-                    {% else %}
-                        <button type="submit" class="btn" style="background-color: #6366f1; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
-                            S'inscrire 🎉
-                        </button>
-                    {% endif %}
+                    <p class="status-available">
+                        <span class="meta-label">Disponibilité :</span>
+                        <strong>{{ event.getPlacesRestantes }}</strong> places restantes / {{ event.capacite }}
+                    </p>
                 {% endif %}
-            </form>
+            </div>
 
-        {% endif %}
-    </div>
+            <div class="registration-action">
+                {% if not app.user %}
+                    <a href="{{ path('app_login') }}" class="btn-auth-redirect">Connectez-vous pour vous inscrire</a>
+                {% else %}
+                    <form action="{{ path('app_event_inscription', {'id': event.id}) }}" method="POST">
+                        {% if event.participants.contains(app.user) %}
+                            <button type="submit" class="btn-submit-action btn-danger-action">
+                                Se désinscrire ❌
+                            </button>
+                        {% else %}
+                            {% if event.getPlacesRestantes <= 0 %}
+                                <button type="button" class="btn-submit-action btn-disabled-action" disabled>
+                                    Complet 🚫
+                                </button>
+                            {% else %}
+                                <button type="submit" class="btn-submit-action btn-success-action">
+                                    S'inscrire 🎉
+                                </button>
+                            {% endif %}
+                        {% endif %}
+                    </form>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
 {% endblock %}
