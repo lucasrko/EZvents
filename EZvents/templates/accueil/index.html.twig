@@ -1,31 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EZvents{% endblock %}
+{% block title %}Accueil - EZvents{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}"
+    <link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="homepage-container">
+    <div class="homepage-container" id="main-content">
 
         <header class="header-home">
 
-            <form action="{{ path('app_search') }}" method="GET" class="search-form-advanced">
+            {# 🔍 Formulaire de recherche accessible #}
+            <form action="{{ path('app_search') }}" method="GET" class="search-form-advanced" role="search" aria-label="Recherche avancée d'événements">
+
                 <div class="search-main-row">
-                    <input type="search" name="q" value="{{ app.request.query.get('q') }}" placeholder="Rechercher par nom d'événement..." class="search-input" aria-label="Nom de l'événement">
-                    <button type="submit" class="btn-search">Rechercher 🔍</button>
+                    <input type="search" name="q" value="{{ app.request.query.get('q') }}" placeholder="Rechercher par nom..." class="search-input" aria-label="Rechercher par nom d'événement">
+                    <button type="submit" class="btn-search" aria-label="Lancer la recherche">Rechercher 🔍</button>
                 </div>
 
-                <div class="search-filters-row" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                <div class="search-filters-row">
+                    <input type="text" name="ville" value="{{ app.request.query.get('ville') }}" placeholder="Ville" class="search-input-sub js-city-input" aria-label="Filtrer par ville">
+                    <input type="text" name="cp" value="{{ app.request.query.get('cp') }}" placeholder="Code Postal" class="search-input-sub js-zipcode-input" aria-label="Filtrer par code postal">
+                    <input type="text" name="equipe" value="{{ app.request.query.get('equipe') }}" placeholder="Nom d'équipe (VS)" class="search-input-sub" aria-label="Filtrer par nom d'équipe">
 
-                    <input type="text" name="ville" value="{{ app.request.query.get('ville') }}" placeholder="Ville" class="search-input-sub js-city-input" style="flex: 1; min-width: 120px;">
-
-                    <input type="text" name="cp" value="{{ app.request.query.get('cp') }}" placeholder="Code Postal" class="search-input-sub js-zipcode-input" style="flex: 1; min-width: 100px;">
-
-                    <input type="text" name="equipe" value="{{ app.request.query.get('equipe') }}" placeholder="Nom d'équipe (VS)" class="search-input-sub" style="flex: 1; min-width: 150px;">
-
-                    <select name="jeu" class="search-select" style="flex: 1; min-width: 150px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+                    <select name="jeu" class="search-select" aria-label="Filtrer par jeu vidéo">
                         <option value="">Tous les jeux 🎮</option>
                         <option value="cs2" {{ app.request.query.get('jeu') == 'cs2' ? 'selected' : '' }}>Counter-Strike 2</option>
                         <option value="lol" {{ app.request.query.get('jeu') == 'lol' ? 'selected' : '' }}>League of Legends</option>
@@ -43,22 +42,22 @@
                         <option value="R6" {{ app.request.query.get('jeu') == 'R6' ? 'selected' : '' }}>Rainbow Six Siege</option>
                     </select>
 
-                    <input type="date" name="date" value="{{ app.request.query.get('date') }}" class="search-date" style="background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; padding: 0.5rem;">
+                    <input type="date" name="date" value="{{ app.request.query.get('date') }}" class="search-date" aria-label="Filtrer par date à partir de">
                 </div>
             </form>
 
             <div class="header-actions">
-                <a href="{{ path('app_create') }}" class="btn btn-create">Créer un événement</a>
+                <a href="{{ path('app_create') }}" class="btn-create" aria-label="Créer un nouvel événement">Créer un événement</a>
 
                 {% if app.user %}
-                    <a href="{{ path('app_profil', {'pseudo': app.user.pseudo}) }}" class="profile-link" title="Mon profil">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <a href="{{ path('app_profil', {'pseudo': app.user.pseudo}) }}" class="profile-link" aria-label="Accéder à mon profil">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" aria-hidden="true" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                         </svg>
                     </a>
                 {% else %}
-                    <a href="{{ path('app_login') }}" class="btn btn-login" style="color: #fff; text-decoration: none; border: 1px solid #334155; padding: 0.5rem 1rem; border-radius: 6px;">Connexion</a>
+                    <a href="{{ path('app_login') }}" class="btn-login" aria-label="Se connecter">Connexion</a>
                 {% endif %}
             </div>
 
@@ -66,20 +65,22 @@
 
         <main class="main-content">
             <h1>Bienvenue sur EZvents ! 👋</h1>
-            <p>Trouvez et créez des événements en quelques clics.</p>
+            <p class="subtitle">Trouvez et créez des événements en quelques clics.</p>
 
-            <section class="events-section">
-                <h2>Événements à la une 🎮</h2>
+            <section class="events-section" aria-labelledby="events-title">
+                <h2 id="events-title">Événements à la une 🎮</h2>
 
                 <div class="events-grid">
                     {% for event in events %}
-                        <div class="event-card">
-                            <span class="badge-game game-{{ event.categorie }}">{{ event.categorie|upper }}</span>
+                        <article class="event-card bg-{{ event.categorie|lower|replace({' ': ''}) }}">
 
+                            {# 1. Le petit badge du jeu en haut #}
+                            {# <span class="badge-game">{{ event.categorie|upper }}</span>#}
+
+                            {# 2. Le corps avec le titre, la date et les équipes #}
                             <div class="event-card-body">
                                 <h3>{{ event.name }}</h3>
                                 <p class="event-date">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
-                                <p class="event-desc">{{ event.description|slice(0, 100) }}...</p>
 
                                 <div class="event-teams">
                                     {% if event.nomEquipe1 and event.nomEquipe2 %}
@@ -92,13 +93,15 @@
                                 </div>
                             </div>
 
+                            {# 3. Le bas de la carte avec les places et le bouton #}
                             <div class="event-card-footer">
-                                <span class="capacity">👥 {{ event.capacite }} places</span>
+                                <span class="capacity">👥 {{ event.capacite }} places restantes</span>
                                 <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details">Voir l'event</a>
                             </div>
-                        </div>
+
+                        </article>
                     {% else %}
-                        <p class="no-events">Aucun événement n'est disponible pour le moment. Soyez le premier à en créer un !</p>
+                        <p class="no-events" role="status">Aucun événement n'est disponible pour le moment. Soyez le premier à en créer un !</p>
                     {% endfor %}
                 </div>
             </section>

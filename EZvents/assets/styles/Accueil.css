@@ -1,31 +1,31 @@
-/* --- VARIABLES --- */
+/* 🎨 VARIABLES ACCESSIBILITÉ & HAUT CONTRASTE */
 :root {
-    --esport-bg: #0f111a;
-    --esport-card: #1a1d29;
-    --esport-card-hover: #222636;
-    --esport-accent: #00d2ff;
-    --esport-accent-hover: #00a3cc;
-    --esport-text: #e2e8f0;
-    --esport-muted: #94a3b8;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-hover: #334155;
+    --text-light: #f8fafc;
+    --text-muted: #cbd5e1;
+    --accent-blue: #2563eb;
+    --accent-focus: #4f46e5;
+    --border-color: #475569;
 }
 
 /* --- RESET ET GLOBALES --- */
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--esport-bg);
-    color: var(--esport-text);
-    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
-    background-image: radial-gradient(circle at 50% 0%, #1a1d29 0%, #0f111a 70%);
-    background-attachment: fixed; /* Garde le fond fixe au défilement */
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: system-ui, -apple-system, sans-serif;
+    background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%);
+    background-attachment: fixed;
 }
 
 a {
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-/* --- STRUCTURE PRINCIPALE --- */
 .homepage-container {
     display: flex;
     flex-direction: column;
@@ -35,57 +35,75 @@ a {
 /* --- HEADER --- */
 .header-home {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 1.5rem;
     padding: 1.5rem 5%;
-    background-color: rgba(26, 29, 41, 0.95);
-    border-bottom: 2px solid var(--esport-accent);
+    background-color: rgba(15, 23, 42, 0.95);
+    border-bottom: 3px solid var(--accent-blue);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-/* --- BARRE DE RECHERCHE --- */
-.search-form {
+/* --- BARRE DE RECHERCHE AVANCÉE --- */
+.search-form-advanced {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 800px;
+}
+
+.search-main-row {
     display: flex;
     gap: 0.5rem;
-    flex: 1;
-    max-width: 500px;
 }
 
-.search-input {
-    flex: 1;
+.search-filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.search-input, .search-input-sub, .search-select, .search-date {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 6px;
     padding: 0.6rem 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--esport-text);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    transition: border-color 0.3s ease;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
 }
 
-.search-input:focus {
-    outline: none;
-    border-color: var(--esport-accent);
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
+.search-input { flex: 1; }
+.search-input-sub { flex: 1; min-width: 120px; }
+.search-select { flex: 1; min-width: 150px; cursor: pointer; }
+.search-date { flex: 1; min-width: 140px; }
+
+.search-input:focus, .search-input-sub:focus, .search-select:focus, .search-date:focus {
+    outline: 3px solid rgba(99, 102, 241, 0.5);
+    border-color: var(--accent-focus);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .btn-search {
     padding: 0.6rem 1.2rem;
     background-color: transparent;
-    color: var(--esport-accent);
-    border: 1px solid var(--esport-accent);
-    border-radius: 4px;
+    color: #60a5fa;
+    border: 2px solid #60a5fa;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
+    font-weight: 700;
+    transition: all 0.2s ease;
 }
 
-.btn-search:hover {
-    background-color: var(--esport-accent);
+.btn-search:hover, .btn-search:focus {
+    background-color: #60a5fa;
     color: #000;
+    outline: 3px solid rgba(96, 165, 250, 0.3);
 }
 
 /* --- ACTIONS DU HEADER --- */
@@ -95,30 +113,25 @@ a {
     gap: 1.5rem;
 }
 
-.btn-create {
+.btn-create, .btn-login {
     padding: 0.6rem 1.2rem;
-    background-color: var(--esport-accent);
-    color: #000;
+    background-color: var(--accent-blue);
+    color: #fff;
     font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
+    border-radius: 6px;
+    border: none;
 }
 
-.btn-create:hover {
-    background-color: var(--esport-accent-hover);
-    transform: translateY(-2px);
+.btn-login {
+    background-color: transparent;
+    border: 2px solid var(--border-color);
 }
 
-.profile-link {
-    color: var(--esport-text);
-    display: flex;
-    align-items: center;
-}
+.btn-create:hover, .btn-create:focus { background-color: #1d4ed8; }
+.btn-login:hover, .btn-login:focus { border-color: var(--text-light); }
 
-.profile-link:hover {
-    color: var(--esport-accent);
-}
+.profile-link { color: var(--text-light); display: flex; }
+.profile-link:hover, .profile-link:focus { color: #60a5fa; outline: 2px solid #60a5fa; border-radius: 50%; }
 
 /* --- CONTENU PRINCIPAL --- */
 .main-content {
@@ -127,189 +140,205 @@ a {
 }
 
 .main-content h1 {
-    font-size: 2.5rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 2.2rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-light);
 }
 
-.main-content > p {
-    color: var(--esport-muted);
+.subtitle {
+    color: var(--text-muted);
     font-size: 1.1rem;
     margin-bottom: 3rem;
 }
 
-/* --- SECTION ÉVÉNEMENTS --- */
 .events-section h2 {
-    font-size: 1.8rem;
-    border-left: 4px solid var(--esport-accent);
+    font-size: 1.6rem;
+    border-left: 4px solid var(--accent-blue);
     padding-left: 1rem;
     margin-bottom: 2rem;
-    text-transform: uppercase;
 }
 
-/* Grille responsive */
+/* ==========================================================
+   🚀 DISPOSITION : GRILLE EN RANGÉES DE 4
+   ========================================================== */
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr; /* Mobile : 1 par ligne */
+    gap: 1.5rem;
 }
 
-/* --- CARTES D'ÉVÉNEMENTS --- */
+@media (min-width: 768px) {
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tablette : 2 par ligne */
+    }
+}
+
+@media (min-width: 1200px) {
+    .events-grid {
+        /* Exactement 4 par ligne, le 5ème passe automatiquement en dessous */
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* ==========================================================
+   📦 LA CARTE EVENT : DISPOSITION PHOTO FOND & INFOS BLANCHES
+   ========================================================== */
 .event-card {
-    background-color: var(--esport-card);
-    border-radius: 8px;
+    position: relative; /* Obligatoire pour positionner l'overlay et le badge */
+    display: flex;
+    flex-direction: column;
+    min-height: 330px; /* Hauteur harmonieuse et homogène */
+    border-radius: 10px;
     padding: 1.5rem;
+    border: 2px solid var(--border-color);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--bg-card);
+    overflow: hidden; /* Empêche le fond et le calque noir de dépasser des arrondis */
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.event-card:hover, .event-card:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--accent-focus);
+}
+
+/* 🖤 LE CALQUE NOIR (OVERLAY PRO)
+   Filtre sombre appliqué sur l'image pour faire flasher les textes en blanc.
+*/
+.event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.45) 0%,
+        rgba(15, 23, 42, 0.85) 60%,
+        rgba(15, 23, 42, 0.98) 100%
+    );
+    z-index: 1; /* Reste sous le texte */
+}
+
+/* 🚀 CONTENEURS TEXTUELS (Passent au-dessus du calque noir) */
+.event-card .badge-game,
+.event-card .event-card-body,
+.event-card .event-card-footer {
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    z-index: 2; /* Force tout à passer au premier plan */
+}
+
+.event-card-body {
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    border-color: rgba(0, 210, 255, 0.3);
-    background-color: var(--esport-card-hover);
-}
-
-/* Badge Catégorie (Jeu) */
-.badge-game {
-    position: absolute;
-    top: -10px;
-    right: 20px;
-    background-color: var(--esport-accent);
-    color: #000;
-    padding: 0.3rem 0.8rem;
-    font-size: 0.75rem;
+/* 🤍 CONFIGURATION DES TEXTES EN BLANC ET ASSIMILÉS */
+.event-card h3 {
+    margin: 0;
+    font-size: 1.35rem;
     font-weight: 800;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3);
-}
-
-.event-card-body {
-    flex: 1; /* Pousse le footer vers le bas */
-}
-
-.event-card-body h3 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
-    color: #fff;
+    color: #ffffff; /* Blanc pur */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .event-date {
-    color: var(--esport-accent);
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    color: #cbd5e1; /* Blanc/Gris clair satiné */
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 0.3rem;
+    margin-bottom: auto; /* Pousse les équipes vers le bas de la carte */
 }
 
-.event-desc {
-    color: var(--esport-muted);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
+/* Optionnel : Masque le bloc description si tu veux coller à la maquette épurée */
+.event-card .event-desc {
+    display: none;
 }
 
-/* Style Équipes VS Lieu */
+/* 🖤 LE BANDEAU CENTRAL DES ÉQUIPES (OU DE L'ADRESSE) */
 .event-teams {
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 1rem;
-    border-radius: 6px;
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Boite bien opaque */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 0.5rem;
+    border-radius: 4px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.team {
-    font-weight: 700;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.vs {
-    color: var(--esport-accent);
-    font-size: 0.8rem;
-    font-weight: 800;
-    background: rgba(0, 210, 255, 0.1);
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-}
-
-.location {
-    color: var(--esport-text);
+    gap: 0.5rem;
     font-size: 0.9rem;
+    box-sizing: border-box;
 }
 
-/* Footer de la carte */
+.team { font-weight: 700; color: #ffffff; }
+.vs { color: #94a3b8; font-weight: 500; font-size: 0.8rem; }
+.location { color: #ffffff; font-weight: 600; }
+
+/* 👥 LE FOOTER (Places à gauche, Bouton à droite) */
 .event-card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1rem;
+    margin-top: auto;
 }
 
 .capacity {
-    color: var(--esport-muted);
-    font-size: 0.85rem;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .btn-details {
-    color: var(--esport-text);
+    color: #ffffff;
+    font-weight: 600;
     font-size: 0.85rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 0.9rem;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #000000; /* Bouton noir pur style e-sport */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
 }
 
-.btn-details:hover {
-    background-color: var(--esport-accent);
-    color: #000;
+.btn-details:hover, .btn-details:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+/* --- RESPONSIVE MOBILE ACCESSOIRES --- */
+@media (max-width: 768px) {
+    .header-home { flex-direction: column; align-items: stretch; }
+    .search-main-row { flex-direction: column; }
+    .header-actions { justify-content: space-between; margin-top: 1rem; }
 }
 
 .no-events {
-    color: var(--esport-muted);
+    color: var(--text-muted);
     font-style: italic;
-    grid-column: 1 / -1; /* Prend toute la largeur de la grille */
+    grid-column: 1 / -1;
     text-align: center;
     padding: 3rem;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 6px;
 }
 
-/* --- RESPONSIVE DESIGN --- */
-@media (max-width: 768px) {
-    .header-home {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .search-form {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .header-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-}
-.game-bs { background-color: #eab308; }   /* Brawl Stars - Jaune */
-.game-cod { background-color: #78350f; }  /* Call of Duty - Marron/Militaire */
-.game-R6 { background-color: #0284c7; }   /* R6 - Bleu tactique */
-.game-tekken { background-color: #dc2626; } /* Tekken - Rouge feu */
+/* ==========================================================
+   🖼️ MAPPING DES IMAGES DE FOND
+   ========================================================== */
+.event-card.bg-valorant { background-image: url('../images/bgs/valo.webp'); }
+.event-card.bg-tekken { background-image: url('../images/bgs/tekken.webp'); }
+.event-card.bg-tft { background-image: url('../images/bgs/tft.webp'); }
+.event-card.bg-apex { background-image: url('../images/bgs/apex.webp'); }
+.event-card.bg-bs { background-image: url('../images/bgs/bs.webp'); }
+.event-card.bg-cod { background-image: url('../images/bgs/cod.webp'); }
+.event-card.bg-cs2 { background-image: url('../images/bgs/cs2.webp'); }
+.event-card.bg-dota2 { background-image: url('../images/bgs/dota2.webp'); }
+.event-card.bg-fortnite { background-image: url('../images/bgs/fortnite.webp'); }
+.event-card.bg-lol { background-image: url('../images/bgs/lol.webp'); }
+.event-card.bg-overwatch { background-image: url('../images/bgs/overwatch.webp'); }
+.event-card.bg-r6 { background-image: url('../images/bgs/r6.webp'); }
+.event-card.bg-rl { background-image: url('../images/bgs/rl.webp'); }
+.event-card.bg-streetfighter { background-image: url('../images/bgs/st6.webp'); }
