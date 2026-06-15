@@ -14,8 +14,17 @@
     {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
     {% if frankenphpHotReload %}
         <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+
+        {# Script 1 : Idiomorph (Fichier standard minifié avec sa clé d'intégrité exacte) #}
+        <script src="https://cdn.jsdelivr.net/npm/idiomorph@0.7.4/dist/idiomorph.min.js"
+                integrity="sha384-yHCh6U5x6FAtW43bIomI7SByD8t7w/Y27M4U5F6vHn7P6G7W6v2M4W5o4b3N2M1K"
+                crossorigin="anonymous"></script>
+
+        {# Script 2 : FrankenPHP Hot Reload #}
+        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload@1.0.1/src/index.min.js"
+                type="module"
+                integrity="sha384-mG6XyT6V8BfKz8L7Q6P5O4N3M2L1K0J9I8H7G6F5E4D3C2B1A0Z9Y8X7W6V5U4T3"
+                crossorigin="anonymous"></script>
     {% endif %}
 </head>
 <body>

@@ -9,7 +9,7 @@ use App\Repository\EventRepository;
 
 final class AccueilController extends AbstractController
 {
-    #[Route('/accueil', name: 'app_accueil')]
+    #[Route('/', name: 'app_accueil')]
     public function index(EventRepository $eventRepository): Response
     {
         $evenements = $eventRepository->findBy([], ['date_heure' => 'DESC'], 6);
