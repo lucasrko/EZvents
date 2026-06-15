@@ -8,7 +8,7 @@
 
 {% block body %}
     <main class="auth-container" id="main-content">
-        <div class="form-container" role="region" aria-labelledby="registration-title">
+        <section class="form-container" aria-labelledby="registration-title">
 
             <h1 id="registration-title">Créer un compte 🎉</h1>
             <p class="auth-subtitle">Rejoignez EZvents pour participer aux tournois et événements.</p>
@@ -88,12 +88,12 @@
                 {% endif %}
             </div>
 
-            <button type="submit" class="btn" aria-label="S'inscrire et créer un compte sur EZvents">Créer mon compte 🎉</button>
+            <button type="submit" class="btn" aria-label="Créer mon compte">Créer mon compte</button>
 
             {{ form_end(registrationForm) }}
             <div class="auth-footer">
-                <p>Déjà un compte ? <a href="{{ path('app_login') }}" aria-label="Aller sur la page d'inscription">Connectez-vous ici</a></p>
+                <p>Déjà un compte ? <a href="{{ path('app_login') }}" aria-label="Connectez-vous ici">Connectez-vous ici</a></p>
             </div>
-        </div>
+        </section>
     </main>
 {% endblock %}

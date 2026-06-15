@@ -10,7 +10,7 @@
 {% block body %}
     <main class="profile-container" id="main-content">
 
-        <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retourner à la page d'accueil">← Retour à l'accueil</a>
+        <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retour à l'accueil">Retour à l'accueil</a>
 
         {# Fiche d'identité de l'utilisateur #}
         <header class="profile-card" role="banner">
@@ -43,25 +43,25 @@
 
                         {# Actions de gestion pour l'auteur #}
                         {% if app.user and user.id == app.user.id %}
-                            <div class="author-actions" role="group" aria-label="Actions de gestion de l'événement">
+                            <div class="author-actions" aria-label="Actions de gestion de l'événement">
                                 <a href="{{ path('app_edit', {'id': event.id}) }}" class="btn-profile-action btn-edit" aria-label="Modifier l'événement {{ event.name }}">
-                                    Modifier ✏️
+                                    Modifier
                                 </a>
 
                                 <a href="{{ path('app_delete', {'id': event.id}) }}"
                                    class="btn-profile-action btn-delete"
                                    aria-label="Supprimer l'événement {{ event.name }}"
                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');">
-                                    Supprimer 🗑️
+                                    Supprimer
                                 </a>
                             </div>
                         {% endif %}
                     </article>
                 {% else %}
-                    <p class="no-events-profile" role="status">
+                    <output class="no-events-profile">
                         Vous n'avez pas encore créé d'événement.
                         <a href="{{ path('app_create') }}" class="create-first-link">Créez votre premier événement dès maintenant !</a>
-                    </p>
+                    </output>
                 {% endfor %}
             </div>
         </section>

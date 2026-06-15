@@ -25,9 +25,9 @@
 
                 {# ℹ️ Message informatif si l'utilisateur est déjà connecté #}
                 {% if app.user %}
-                    <div class="alert alert-info" role="status">
+                    <output class="alert alert-info">
                         Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Me déconnecter</a>
-                    </div>
+                    </output>
                 {% endif %}
 
                 <div class="form-group">
@@ -57,7 +57,7 @@
             </form>
 
             <div class="auth-footer">
-                <p>Pas encore de compte ? <a href="{{ path('app_register') }}" aria-label="Aller sur la page d'inscription">S'inscrire ici</a></p>
+                <p>Pas encore de compte ? <a href="{{ path('app_register') }}" aria-label="S'inscrire ici">S'inscrire ici</a></p>
             </div>
 
         </section>
