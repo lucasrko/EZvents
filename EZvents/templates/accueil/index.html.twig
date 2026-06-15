@@ -16,7 +16,7 @@
 
                 <div class="search-main-row">
                     <input type="search" name="q" value="{{ app.request.query.get('q') }}" placeholder="Rechercher par nom..." class="search-input" aria-label="Rechercher par nom d'événement">
-                    <button type="submit" class="btn-search" aria-label="Lancer la recherche">Rechercher 🔍</button>
+                    <button type="submit" class="btn-search" aria-label="Lancer la recherche">Rechercher</button>
                 </div>
 
                 <div class="search-filters-row">
@@ -47,7 +47,7 @@
             </form>
 
             <div class="header-actions">
-                <a href="{{ path('app_create') }}" class="btn-create" aria-label="Créer un nouvel événement">Créer un événement</a>
+                <a href="{{ path('app_create') }}" class="btn-create" aria-label="Créer un évènement">Créer un évènement</a>
 
                 {% if app.user %}
                     <a href="{{ path('app_profil', {'pseudo': app.user.pseudo}) }}" class="profile-link" aria-label="Accéder à mon profil">
@@ -101,7 +101,7 @@
 
                         </article>
                     {% else %}
-                        <p class="no-events" role="status">Aucun événement n'est disponible pour le moment. Soyez le premier à en créer un !</p>
+                        <output class="no-events">Aucun événement n'est disponible pour le moment. Soyez le premier à en créer un !</output>
                     {% endfor %}
                 </div>
             </section>

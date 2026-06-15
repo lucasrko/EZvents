@@ -23,15 +23,14 @@ class EventType extends AbstractType
             ->add('name', null, [
                 'label' => 'Nom de l\'événement',
                 'constraints' => [
-                    // 🚀 Utilisation de l'argument nommé "message:" sans les crochets [ ]
-                    new NotBlank(message: 'Donne un nom stylé à ton événement ! 🏆')
+                    new NotBlank(message: 'Donnez un nom à l\'événement')
                 ]
             ])
 
             ->add('description', null, [
                 'label' => 'Description',
                 'constraints' => [
-                    new NotBlank(message: 'Ajoute une description pour expliquer le déroulement du tournoi. 📝')
+                    new NotBlank(message: 'Ajoutez une description')
                 ]
             ])
 
@@ -39,7 +38,7 @@ class EventType extends AbstractType
                 'label' => "Adresse de l'Event",
                 'attr' => ['class' => 'js-address-input', 'autocomplete' => 'off'],
                 'constraints' => [
-                    new NotBlank(message: 'L\'adresse est obligatoire pour que les joueurs trouvent le lieu. 📍')
+                    new NotBlank(message: 'Entrez l\'adresse')
                 ]
             ])
 
@@ -47,7 +46,7 @@ class EventType extends AbstractType
                 'label' => "Ville",
                 'attr' => ['class' => 'js-city-input', 'autocomplete' => 'off'],
                 'constraints' => [
-                    new NotBlank(message: 'Indique la ville où se déroule l\'événement.')
+                    new NotBlank(message: 'Indiquez la ville où se déroule l\'événement.')
                 ]
             ])
 
@@ -82,7 +81,7 @@ class EventType extends AbstractType
                     'Rainbow Six Siege' => 'R6'
                 ],
                 'constraints' => [
-                    new NotBlank(message: 'Sélectionne le jeu de l\'événement. 🎮')
+                    new NotBlank(message: 'Sélectionne le jeu de l\'événement')
                 ]
             ])
 
@@ -90,7 +89,7 @@ class EventType extends AbstractType
                 'label' => 'Date et heure de l\'événement',
                 'widget' => 'single_text',
                 'constraints' => [
-                    new NotBlank(message: 'Tu dois fixer un rendez-vous (date et heure) ! 📅')
+                    new NotBlank(message: 'Fixez une date et l\'heure')
                 ]
             ])
 
@@ -98,11 +97,11 @@ class EventType extends AbstractType
                 'label' => "Numéro de téléphone",
                 'attr' => ['placeholder' => '0612345678'],
                 'constraints' => [
-                    new NotBlank(message: 'Le numéro de téléphone est obligatoire pour les contacts. 📞'),
+                    new NotBlank(message: 'Ajoutez un numéro de téléphone'),
                     new Length(
                         min: 10,
                         max: 10,
-                        exactMessage: 'Le numéro de téléphone doit comporter exactement {{ limit }} chiffres.'
+                        exactMessage: 'Le numéro de téléphone doit comporter exactement 10 chiffres.'
                     ),
                     new Regex(
                         pattern: '/^(?:(?:\+|00)33|0)[1-9](?:[\s.-]*\d{2}){4}$/',
@@ -121,7 +120,7 @@ class EventType extends AbstractType
             ->add('capacite', IntegerType::class, [
                 'label' => "Capacité de l'Event",
                 'constraints' => [
-                    new NotBlank(message: 'Dis-nous combien de places sont disponibles. 👥'),
+                    new NotBlank(message: 'Combien de places sont disponibles'),
                     new Positive(message: 'La capacité doit être supérieure à 0 joueur.')
                 ]
             ])
