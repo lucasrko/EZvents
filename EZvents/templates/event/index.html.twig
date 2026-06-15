@@ -13,7 +13,7 @@
         {# Fiche principale de l'événement #}
         <article class="details-container" aria-labelledby="event-title">
 
-            <a href="{{ path('app_accueil') }}" class="btn-back" aria-label="Retourner à la page d'accueil">← Retour à l'accueil</a>
+            <a href="{{ path('app_accueil') }}" class="btn-back" aria-label="Retour à l'accueil">Retour à l'accueil</a>
 
             <div class="event-header-badge">
                 <span class="badge-game game-{{ event.categorie|lower|replace({' ': ''}) }}">{{ event.categorie|upper }}</span>
@@ -47,7 +47,7 @@
 
             {# Affichage de l'affiche du match (VS) #}
             {% if event.nomEquipe1 and event.nomEquipe2 %}
-                <div class="event-match-banner" role="region" aria-label="Affiche du match">
+                <section class="event-match-banner" aria-label="Affiche du match">
                     <div class="team-block">
                         <span class="meta-label-sm">Équipe 1</span>
                         <span class="team-name">{{ event.nomEquipe1 }}</span>
@@ -57,7 +57,7 @@
                         <span class="meta-label-sm">Équipe 2</span>
                         <span class="team-name">{{ event.nomEquipe2 }}</span>
                     </div>
-                </div>
+                </section>
             {% endif %}
 
             {# Section description #}
