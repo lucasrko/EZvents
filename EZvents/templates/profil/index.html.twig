@@ -12,7 +12,6 @@
 
         <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retour à l'accueil">Retour à l'accueil</a>
 
-        {# Fiche d'identité de l'utilisateur #}
         <header class="profile-card" role="banner">
             <div class="profile-avatar" aria-hidden="true">
                 {{ user.pseudo|slice(0, 2) }}
@@ -22,13 +21,11 @@
             </div>
         </header>
 
-        {# Liste des événements créés #}
         <section class="my-events-section" aria-labelledby="section-title">
             <h2 id="section-title" class="my-events-title">Mes Événements Créés ({{ events|length }}) 📢</h2>
 
             <div class="events-grid">
                 {% for event in events %}
-                    {# Réutilisation du système de fond dynamique propre à EZvents #}
                     <article class="event-card has-background bg-{{ event.categorie|lower|replace({' ': ''}) }}" aria-labelledby="event-title-{{ event.id }}">
 
                         <div class="event-card-body">
@@ -41,7 +38,6 @@
                             <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details" aria-label="Voir les détails de l'événement {{ event.name }}">Voir les détails</a>
                         </div>
 
-                        {# Actions de gestion pour l'auteur #}
                         {% if app.user and user.id == app.user.id %}
                             <div class="author-actions" aria-label="Actions de gestion de l'événement">
                                 <a href="{{ path('app_edit', {'id': event.id}) }}" class="btn-profile-action btn-edit" aria-label="Modifier l'événement {{ event.name }}">

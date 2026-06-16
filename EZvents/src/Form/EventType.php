@@ -81,7 +81,7 @@ class EventType extends AbstractType
                     'Rainbow Six Siege' => 'R6'
                 ],
                 'constraints' => [
-                    new NotBlank(message: 'Sélectionne le jeu de l\'événement')
+                    new NotBlank(message: 'Sélectionnez le jeu de l\'événement')
                 ]
             ])
 

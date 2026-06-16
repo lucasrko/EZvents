@@ -31,7 +31,7 @@ final class EventRegistrationController extends AbstractController
             }
 
             $event->addParticipant($user);
-            $this->addFlash('success', 'Inscription validée avec succès ! 🎉');
+            $this->addFlash('success', 'Inscription validée avec succès !');
         }
 
         $em->flush();

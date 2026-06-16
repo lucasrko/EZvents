@@ -10,7 +10,6 @@
 {% block body %}
     <main class="details-main-container" id="main-content">
 
-        {# Fiche principale de l'événement #}
         <article class="details-container" aria-labelledby="event-title">
 
             <a href="{{ path('app_accueil') }}" class="btn-back" aria-label="Retour à l'accueil">Retour à l'accueil</a>
@@ -21,7 +20,6 @@
 
             <h1 id="event-title">{{ event.name }}</h1>
 
-            {# Grille d'informations avec étiquettes de métadonnées #}
             <div class="meta-info">
                 <div class="meta-item">
                     <span class="meta-label">📅 Date et Heure</span>
@@ -45,7 +43,6 @@
                 {% endif %}
             </div>
 
-            {# Affichage de l'affiche du match (VS) #}
             {% if event.nomEquipe1 and event.nomEquipe2 %}
                 <section class="event-match-banner" aria-label="Affiche du match">
                     <div class="team-block">
@@ -60,7 +57,6 @@
                 </section>
             {% endif %}
 
-            {# Section description #}
             <section class="event-description-section" aria-labelledby="desc-title">
                 <h2 id="desc-title">Description de l'événement</h2>
                 <p class="event-full-desc">
@@ -69,7 +65,6 @@
             </section>
         </article>
 
-        {# Module d'inscription #}
         <section class="registration-section" aria-labelledby="registration-title">
             <h2 id="registration-title">Inscription</h2>
 

@@ -13,17 +13,14 @@
             <h1 id="login-title" class="auth-title">Connexion</h1>
             <p class="auth-subtitle">Content de vous revoir sur EZvents !</p>
 
-            {# Formulaire accessible (Désactivation de la validation native du navigateur) #}
             <form method="post" novalidate="novalidate" class="accessible-form">
 
-                {# ❌ Message d'erreur géré pour les lecteurs vocaux #}
                 {% if error %}
                     <div class="alert alert-danger" role="alert" aria-live="assertive">
                         <span class="sr-only">Erreur :</span> {{ error.messageKey|trans(error.messageData, 'security') }}
                     </div>
                 {% endif %}
 
-                {# ℹ️ Message informatif si l'utilisateur est déjà connecté #}
                 {% if app.user %}
                     <output class="alert alert-info">
                         Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Me déconnecter</a>

@@ -12,7 +12,7 @@
 
             <h1 id="form-title">{{ (isEdit is defined and isEdit) ? "Modifier l'événement" : "Créer un événement" }}</h1>
 
-            {# Gestion globale des erreurs du formulaire #}
+
             {% if not eventForm.vars.valid %}
                 <div class="alert-danger" role="alert" aria-live="assertive">
                     ⚠️ Le formulaire contient des erreurs. Veuillez vérifier les champs saisis.
@@ -21,28 +21,24 @@
 
             {{ form_start(eventForm, {'method':'POST', 'attr': {'novalidate': 'novalidate', 'class': 'accessible-form'}}) }}
 
-            {# Nom de l'événement #}
             <div class="form-group">
                 {{ form_label(eventForm.name, 'Nom de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(eventForm.name, {'attr': {'class': 'form-input', 'placeholder': 'Ex: Tournoi Major Paris', 'aria-required': 'true'}}) }}
                 {{ form_errors(eventForm.name) }}
             </div>
 
-            {# Catégorie (Jeu) #}
             <div class="form-group">
                 {{ form_label(eventForm.categorie, 'Jeu', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(eventForm.categorie, {'attr': {'class': 'form-select', 'aria-required': 'true'}}) }}
                 {{ form_errors(eventForm.categorie) }}
             </div>
 
-            {# Description #}
             <div class="form-group">
                 {{ form_label(eventForm.description, 'Description de l\'événement', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(eventForm.description, {'attr': {'class': 'form-textarea', 'placeholder': 'Détaillez le planning, les récompenses...', 'aria-required': 'true'}}) }}
                 {{ form_errors(eventForm.description) }}
             </div>
 
-            {# Équipes #}
             <div class="form-grid-2col">
                 <div class="form-group">
                     {{ form_label(eventForm.nom_equipe_1, 'Équipe 1', {'label_attr': {'class': 'form-label'}}) }}
@@ -57,14 +53,12 @@
                 </div>
             </div>
 
-            {# Adresse #}
             <div class="form-group">
                 {{ form_label(eventForm.adresse, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(eventForm.adresse, {'attr': {'class': 'form-input js-address-input', 'placeholder': 'Rechercher une adresse...', 'aria-required': 'true'}}) }}
                 {{ form_errors(eventForm.adresse) }}
             </div>
 
-            {# Ville & Code Postal #}
             <div class="form-grid-2col">
                 <div class="form-group">
                     {{ form_label(eventForm.ville, 'Ville', {'label_attr': {'class': 'form-label'}}) }}
@@ -79,7 +73,6 @@
                 </div>
             </div>
 
-            {# Date/Heure & Capacité #}
             <div class="form-grid-2col">
                 <div class="form-group">
                     {{ form_label(eventForm.date_heure, 'Date et Heure', {'label_attr': {'class': 'form-label'}}) }}
@@ -94,7 +87,6 @@
                 </div>
             </div>
 
-            {# Téléphone #}
             <div class="form-group">
                 {{ form_label(eventForm.telephone, 'Numéro de téléphone', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(eventForm.telephone, {'attr': {'class': 'form-input', 'placeholder': '0612345678', 'aria-required': 'true'}}) }}
@@ -113,19 +105,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        // 🚀 Fonction globale qui initialise tes écoutes d'API Gouv
         function initAutocomplete() {
             const addressInput = document.querySelector('.js-address-input');
             const cityInput = document.querySelector('.js-city-input');
             const zipInput = document.querySelector('.js-zipcode-input');
 
-            // 🛡️ Sécurité : Évite les doublons d'écouteurs si Turbo recharge le script
             if (addressInput && addressInput.dataset.autocompleteInitialized) return;
             if (addressInput) addressInput.dataset.autocompleteInitialized = "true";
 
-            // ==========================================
-            // 1. LOGIQUE POUR LE CHAMP ADRESSE
-            // ==========================================
             if (addressInput) {
                 addressInput.parentNode.style.position = 'relative';
                 const addressContainer = document.createElement('div');
@@ -180,9 +167,6 @@
                 });
             }
 
-            // ==========================================
-            // 2. LOGIQUE POUR LE CHAMP VILLE
-            // ==========================================
             if (cityInput) {
                 cityInput.parentNode.style.position = 'relative';
                 const cityContainer = document.createElement('div');
@@ -235,18 +219,12 @@
             }
         }
 
-        // ==========================================
-        // 🚀 GESTION DES ÉCOUTEURS EXTÉRIEURS (TURBO FIX)
-        // ==========================================
-
-        // 1. Gère le chargement direct ou le rafraîchissement manuel ($F5$)
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initAutocomplete);
         } else {
             initAutocomplete();
         }
 
-        // 2. Gère la navigation fluide AJAX de Symfony Turbo Drive
         document.addEventListener('turbo:load', initAutocomplete);
     </script>
 {% endblock %}

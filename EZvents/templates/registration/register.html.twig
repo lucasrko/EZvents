@@ -13,7 +13,6 @@
             <h1 id="registration-title">Créer un compte 🎉</h1>
             <p class="auth-subtitle">Rejoignez EZvents pour participer aux tournois et événements.</p>
 
-            {# Messages d'erreurs globaux #}
             {% if not registrationForm.vars.valid %}
                 <div class="alert alert-danger" role="alert" aria-live="assertive">
                     ⚠️ Le formulaire contient des erreurs. Veuillez les vérifier ci-dessous.
@@ -23,7 +22,6 @@
             {{ form_start(registrationForm, {'attr': {'class': 'accessible-form', 'novalidate': 'novalidate'}}) }}
 
             <div class="form-grid">
-                {# Nom #}
                 <div class="form-group">
                     {{ form_label(registrationForm.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.name, {'attr': {'class': 'form-input', 'autocomplete': 'family-name', 'placeholder': 'Ex: Dupont', 'aria-required': 'true'}}) }}
@@ -32,7 +30,6 @@
                     {% endif %}
                 </div>
 
-                {# Prénom #}
                 <div class="form-group">
                     {{ form_label(registrationForm.firstname, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-input', 'autocomplete': 'given-name', 'placeholder': 'Ex: Jean', 'aria-required': 'true'}}) }}
@@ -41,7 +38,6 @@
                     {% endif %}
                 </div>
 
-                {# Pseudo #}
                 <div class="form-group">
                     {{ form_label(registrationForm.pseudo, 'Pseudo Gaming', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.pseudo, {'attr': {'class': 'form-input', 'autocomplete': 'nickname', 'placeholder': 'Ex: NeoPlayer_X', 'aria-required': 'true'}}) }}
@@ -50,7 +46,6 @@
                     {% endif %}
                 </div>
 
-                {# Téléphone #}
                 <div class="form-group">
                     {{ form_label(registrationForm.telephone, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.telephone, {'attr': {'class': 'form-input', 'autocomplete': 'tel', 'placeholder': '06 00 00 00 00', 'aria-required': 'true'}}) }}
@@ -60,7 +55,6 @@
                 </div>
             </div>
 
-            {# Email (Prend toute la largeur) #}
             <div class="form-group full-width">
                 {{ form_label(registrationForm.email, 'Adresse Email', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input', 'autocomplete': 'email', 'placeholder': 'exemple@domaine.com', 'aria-required': 'true'}}) }}
@@ -69,7 +63,6 @@
                 {% endif %}
             </div>
 
-            {# Mot de passe #}
             <div class="form-group full-width">
                 {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input', 'aria-describedby': 'password-hint', 'aria-required': 'true'}}) }}
@@ -79,7 +72,6 @@
                 {% endif %}
             </div>
 
-            {# Case CGU #}
             <div class="terms-box">
                 {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-checkbox', 'aria-required': 'true'}}) }}
                 {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions générales d\'utilisation du site', {'label_attr': {'class': 'form-checkbox-label'}}) }}

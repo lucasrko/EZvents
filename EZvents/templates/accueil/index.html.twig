@@ -11,7 +11,6 @@
 
         <header class="header-home">
 
-            {# 🔍 Formulaire de recherche accessible #}
             <form action="{{ path('app_search') }}" method="GET" class="search-form-advanced" role="search" aria-label="Recherche avancée d'événements">
 
                 <div class="search-main-row">
@@ -64,20 +63,16 @@
         </header>
 
         <main class="main-content">
-            <h1>Bienvenue sur EZvents ! 👋</h1>
-            <p class="subtitle">Trouvez et créez des événements en quelques clics.</p>
+            <h1>Bienvenue sur EZvents </h1>
+            <p class="subtitle">Trouvez et créez des événements près de chez vous</p>
 
             <section class="events-section" aria-labelledby="events-title">
-                <h2 id="events-title">Événements à la une 🎮</h2>
+                <h2 id="events-title">Événements à la une</h2>
 
                 <div class="events-grid">
                     {% for event in events %}
                         <article class="event-card bg-{{ event.categorie|lower|replace({' ': ''}) }}">
 
-                            {# 1. Le petit badge du jeu en haut #}
-                            {# <span class="badge-game">{{ event.categorie|upper }}</span>#}
-
-                            {# 2. Le corps avec le titre, la date et les équipes #}
                             <div class="event-card-body">
                                 <h3>{{ event.name }}</h3>
                                 <p class="event-date">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
@@ -93,7 +88,6 @@
                                 </div>
                             </div>
 
-                            {# 3. Le bas de la carte avec les places et le bouton #}
                             <div class="event-card-footer">
                                 <span class="capacity">👥 {{ event.capacite }} places restantes</span>
                                 <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details">Voir l'event</a>
