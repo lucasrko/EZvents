@@ -17,13 +17,10 @@
             <section class="events-section" style="margin-top: 2rem;">
                 <div class="events-grid">
                     {% for event in events %}
-                        <div class="event-card">
-                            <span class="badge-game game-{{ event.categorie }}">{{ event.categorie|upper }}</span>
-
+                        <div class="event-card bg-{{ event.categorie|lower|replace({' ': ''}) }}">
                             <div class="event-card-body">
                                 <h3>{{ event.name }}</h3>
                                 <p class="event-date">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
-                                <p class="event-desc">{{ event.description|slice(0, 100) }}...</p>
 
                                 <div class="event-teams">
                                     {% if event.nomEquipe1 and event.nomEquipe2 %}
