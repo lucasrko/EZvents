@@ -18,7 +18,7 @@ jobs:
         env:
           POSTGRES_DB: app_test
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: app
         ports:
           - 5432:5432
         # On attend que Postgres soit prêt avant de lancer la suite
