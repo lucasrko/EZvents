@@ -11,13 +11,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class DeleteController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
-    #[Route('/event/delete/{id}', name: 'app_delete', methods: ['POST', 'GET'])]
+    #[Route('/event/delete/{id}', name: 'app_delete', methods: ['POST'])]
     public function index(Event $event, EntityManagerInterface $entityManager): Response
     {
         if ($event->getOrganisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException("Impossible, vous n'êtes pas l'auteur de cet Event.");
         }
-        $entityManager->remove($event);
+        $event->setIsArchived(true);
         $entityManager->flush();
 
         $this->addFlash('success',"L'Event a été supprimer");

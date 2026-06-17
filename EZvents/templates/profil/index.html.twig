@@ -44,14 +44,14 @@
                                     Modifier
                                 </a>
 
-                                <a href="{{ path('app_delete', {'id': event.id}) }}"
-                                   class="btn-profile-action btn-delete"
-                                   aria-label="Supprimer l'événement {{ event.name }}"
-                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');">
-                                    Supprimer
-                                </a>
-                            </div>
-                        {% endif %}
+                                <form action="{{ path('app_delete', {'id': event.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');" style="display: inline; flex: 1;">
+                                    <button type="submit" class="btn-profile-action btn-delete" aria-label="Supprimer l'événement {{ event.name }}" style="width: 100%; border: none; cursor: pointer;">
+                                        Supprimer
+                                    </button>
+                                </form>
+                                </div>
+                                {% endif %}
+
                     </article>
                 {% else %}
                     <output class="no-events-profile">

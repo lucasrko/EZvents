@@ -12,6 +12,10 @@ final class EventController extends AbstractController
     #[Route('/event/{id}', name: 'app_event')]
     public function show(Event $event): Response
     {
+        if ($event->isArchived()) {
+            throw $this->createNotFoundException("Cet événement n'est plus disponible.");
+        }
+
         return $this->render('event/index.html.twig', [
             'event' => $event,
         ]);

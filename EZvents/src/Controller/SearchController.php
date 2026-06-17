@@ -21,7 +21,9 @@ final class SearchController extends AbstractController
         $equipe = $request->query->get('equipe', '');
         $date = $request->query->get('date', '');
 
-        $qb = $eventRepository->createQueryBuilder('e');
+        $qb = $eventRepository->createQueryBuilder('e')
+            ->andWhere('e.isArchived = :archived')
+            ->setParameter('archived', false);
 
         if (!empty($query)) {
             $qb->andWhere('e.name LIKE :query')

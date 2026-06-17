@@ -16,6 +16,10 @@ final class EventRegistrationController extends AbstractController
     #[IsGranted(new Expression('is_granted("ROLE_USER")'))]
     public function Inscription(Event $event, EntityManagerInterface $em): Response
     {
+        if ($event->isArchived()) {
+            throw $this->createNotFoundException("Cet événement n'est plus disponible.");
+        }
+
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
 

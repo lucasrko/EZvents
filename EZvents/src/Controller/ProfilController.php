@@ -17,7 +17,11 @@ final class ProfilController extends AbstractController
         if (!$user) {
             throw $this->createNotFoundException("Cet utilisateur n'existe pas");
         }
-        $myEvents = $user->getEvents();
+
+        $myEvents = $user->getEvents()->filter(function($event) {
+            return $event->isArchived() === false;
+        });
+
         return $this->render('profil/index.html.twig', [
             'user' => $user,
             'events' => $myEvents,

@@ -57,6 +57,9 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
+    #[ORM\Column(options: ["default" => false])]
+    private ?bool $isArchived = false;
+
     #[ORM\ManyToMany(targetEntity: User::class)]
     #[ORM\JoinTable(name: "event_user")]
     private Collection $participants;
@@ -69,6 +72,18 @@ class Event
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): static
+    {
+        $this->isArchived = $isArchived;
+
+        return $this;
     }
 
     public function getName(): ?string

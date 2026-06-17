@@ -12,7 +12,7 @@ final class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(EventRepository $eventRepository): Response
     {
-        $evenements = $eventRepository->findBy([], ['date_heure' => 'DESC'], 14);
+        $evenements = $eventRepository->findBy(['isArchived' => false], ['date_heure' => 'DESC'], 14);
 
         return $this->render('accueil/index.html.twig', [
             'events' => $evenements,
