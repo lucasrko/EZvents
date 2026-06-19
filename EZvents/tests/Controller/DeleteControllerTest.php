@@ -40,9 +40,15 @@ final class DeleteControllerTest extends WebTestCase
         // 3. On connecte l'utilisateur
         $client->loginUser($user);
 
-        // 4. On demande la suppression
-        $client->request('GET', '/event/delete/' . $event->getId());
+        // 4. On demande la suppression via une requête POST
+        $client->request('POST', '/event/delete/' . $event->getId());
         
         self::assertResponseRedirects('/profil/' . $user->getPseudo());
+
+        // On vérifie que l'événement a bien été archivé (et non supprimé physiquement)
+        $em->clear();
+        $archivedEvent = $em->getRepository(\App\Entity\Event::class)->find($event->getId());
+        self::assertNotNull($archivedEvent);
+        self::assertTrue($archivedEvent->isArchived());
     }
 }
