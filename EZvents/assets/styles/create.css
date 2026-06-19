@@ -207,3 +207,24 @@ body, html {
         padding: 2.5rem;
     }
 }
+
+/* Bouton Retour */
+.btn-back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--esport-accent-hover);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.btn-back:hover, .btn-back:focus {
+    color: var(--esport-accent);
+    text-decoration: underline;
+}
+
+.btn-back:focus {
+    outline: 3px solid var(--esport-accent-focus);
+    outline-offset: 2px;
+}

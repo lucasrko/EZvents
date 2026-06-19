@@ -9,6 +9,7 @@
 {% block body %}
     <main class="auth-container" id="main-content">
         <section class="form-container" aria-labelledby="form-title">
+            <a href="{{ path('app_accueil') }}" class="btn-back" aria-label="Retour à l'accueil">Retour à l'accueil</a>
 
             <h1 id="form-title">{{ (isEdit is defined and isEdit) ? "Modifier l'événement" : "Créer un événement" }}</h1>
 
