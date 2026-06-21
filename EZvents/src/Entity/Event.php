@@ -91,7 +91,7 @@ class Event
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -103,7 +103,7 @@ class Event
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): static
+    public function setAdresse(?string $adresse): static
     {
         $this->adresse = $adresse;
 
@@ -115,7 +115,7 @@ class Event
         return $this->categorie;
     }
 
-    public function setCategorie(string $categorie): static
+    public function setCategorie(?string $categorie): static
     {
         $this->categorie = $categorie;
 
@@ -127,7 +127,7 @@ class Event
         return $this->date_heure;
     }
 
-    public function setDateHeure(\DateTime $date_heure): static
+    public function setDateHeure(?\DateTime $date_heure): static
     {
         $this->date_heure = $date_heure;
 
@@ -139,7 +139,7 @@ class Event
         return $this->telephone;
     }
 
-    public function setTelephone(string $telephone): static
+    public function setTelephone(?string $telephone): static
     {
         $this->telephone = $telephone;
 
@@ -199,7 +199,7 @@ class Event
         return $this->capacite;
     }
 
-    public function setCapacite(int $capacite): static
+    public function setCapacite(?int $capacite): static
     {
         $this->capacite = $capacite;
 
@@ -235,7 +235,7 @@ class Event
         return $this->code_postal;
     }
 
-    public function setCodePostal(string $code_postal): static
+    public function setCodePostal(?string $code_postal): static
     {
         $this->code_postal = $code_postal;
         return $this;
@@ -246,7 +246,7 @@ class Event
         return $this->ville;
     }
 
-    public function setVille(string $ville): static
+    public function setVille(?string $ville): static
     {
         $this->ville = $ville;
 

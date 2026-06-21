@@ -33,12 +33,8 @@ final class CreateController extends AbstractController
             return $this->redirectToRoute('app_accueil');
         }
 
-        if ($form->isSubmitted()) {
-            dd($form->getErrors(deep: true, flatten: true)->__toString());
-        }
-
         return $this->render('create/index.html.twig', [
             'eventForm' => $form->createView(),
-        ]);
+        ], new Response(null, $form->isSubmitted() && !$form->isValid() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 }

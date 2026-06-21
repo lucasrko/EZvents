@@ -31,6 +31,6 @@ final class EditController extends AbstractController
         return $this->render('create/index.html.twig', [
             'eventForm' => $form->createView(),
             'isEdit' => true,
-        ]);
+        ], new Response(null, $form->isSubmitted() && !$form->isValid() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK));
     }
 }
