@@ -13,7 +13,7 @@
         <div class="profile-top-bar">
             <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retour à l'accueil">Retour à l'accueil</a>
             {% if app.user and user.id == app.user.id %}
-                <a href="{{ path('app_logout') }}" class="btn-logout" aria-label="Se déconnecter">Déconnexion 🚪</a>
+                <a href="{{ path('app_logout') }}" class="btn-logout" aria-label="Déconnexion">Déconnexion</a>
             {% endif %}
         </div>
 
