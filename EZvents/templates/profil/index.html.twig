@@ -10,7 +10,12 @@
 {% block body %}
     <main class="profile-container" id="main-content">
 
-        <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retour à l'accueil">Retour à l'accueil</a>
+        <div class="profile-top-bar">
+            <a href="{{ path('app_accueil') }}" class="btn-back-home" aria-label="Retour à l'accueil">Retour à l'accueil</a>
+            {% if app.user and user.id == app.user.id %}
+                <a href="{{ path('app_logout') }}" class="btn-logout" aria-label="Se déconnecter">Déconnexion 🚪</a>
+            {% endif %}
+        </div>
 
         <header class="profile-card" role="banner">
             <div class="profile-avatar" aria-hidden="true">
@@ -22,44 +27,125 @@
         </header>
 
         <section class="my-events-section" aria-labelledby="section-title">
-            <h2 id="section-title" class="my-events-title">Mes Événements Créés ({{ events|length }}) 📢</h2>
+            <div class="profile-tabs" role="tablist">
+                <button class="profile-tab active" id="tab-created" role="tab" aria-selected="true" aria-controls="created-events-panel">
+                    Mes Événements Créés ({{ events|length }}) 📢
+                </button>
+                <button class="profile-tab" id="tab-registered" role="tab" aria-selected="false" aria-controls="registered-events-panel">
+                    Mes Inscriptions ({{ registeredEvents|length }}) 🎮
+                </button>
+            </div>
 
-            <div class="events-grid">
-                {% for event in events %}
-                    <article class="event-card has-background bg-{{ event.categorie|lower|replace({' ': ''}) }}" aria-labelledby="event-title-{{ event.id }}">
+            <!-- Panel: Created Events -->
+            <div id="created-events-panel" role="tabpanel" aria-labelledby="tab-created">
+                <div class="events-grid">
+                    {% for event in events %}
+                        <article class="event-card has-background bg-{{ event.categorie|lower|replace({' ': ''}) }}" aria-labelledby="event-title-{{ event.id }}">
 
-                        <div class="event-card-body">
-                            <h3 id="event-title-{{ event.id }}">{{ event.name }}</h3>
-                            <p class="event-date" aria-label="Date de l'événement">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
-                        </div>
+                            <div class="event-card-body">
+                                <h3 id="event-title-{{ event.id }}">{{ event.name }}</h3>
+                                <p class="event-date" aria-label="Date de l'événement">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
+                            </div>
 
-                        <div class="event-card-footer">
-                            <span class="capacity" aria-label="Capacité">👥 {{ event.capacite }} places</span>
-                            <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details" aria-label="Voir les détails de l'événement {{ event.name }}">Voir les détails</a>
-                        </div>
+                            <div class="event-card-footer">
+                                <span class="capacity" aria-label="Capacité">👥 {{ event.capacite }} places</span>
+                                <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details" aria-label="Voir les détails de l'événement {{ event.name }}">Voir les détails</a>
+                            </div>
 
-                        {% if app.user and user.id == app.user.id %}
-                            <div class="author-actions" aria-label="Actions de gestion de l'événement">
-                                <a href="{{ path('app_edit', {'id': event.id}) }}" class="btn-profile-action btn-edit" aria-label="Modifier l'événement {{ event.name }}">
-                                    Modifier
-                                </a>
+                            {% if app.user and user.id == app.user.id %}
+                                <div class="author-actions" aria-label="Actions de gestion de l'événement">
+                                    <a href="{{ path('app_edit', {'id': event.id}) }}" class="btn-profile-action btn-edit" aria-label="Modifier l'événement {{ event.name }}">
+                                        Modifier
+                                    </a>
 
-                                <form action="{{ path('app_delete', {'id': event.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');" style="display: inline; flex: 1;">
-                                    <button type="submit" class="btn-profile-action btn-delete" aria-label="Supprimer l'événement {{ event.name }}" style="width: 100%; border: none; cursor: pointer;">
-                                        Supprimer
-                                    </button>
-                                </form>
+                                    <form action="{{ path('app_delete', {'id': event.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible !');" style="display: inline; flex: 1;">
+                                        <button type="submit" class="btn-profile-action btn-delete" aria-label="Supprimer l'événement {{ event.name }}" style="width: 100%; border: none; cursor: pointer;">
+                                            Supprimer
+                                        </button>
+                                    </form>
                                 </div>
-                                {% endif %}
+                            {% endif %}
 
-                    </article>
-                {% else %}
-                    <output class="no-events-profile">
-                        Vous n'avez pas encore créé d'événement.
-                        <a href="{{ path('app_create') }}" class="create-first-link">Créez votre premier événement dès maintenant !</a>
-                    </output>
-                {% endfor %}
+                        </article>
+                    {% else %}
+                        <output class="no-events-profile">
+                            Vous n'avez pas encore créé d'événement.
+                            <a href="{{ path('app_create') }}" class="create-first-link">Créez votre premier événement dès maintenant !</a>
+                        </output>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Panel: Registered Events -->
+            <div id="registered-events-panel" role="tabpanel" aria-labelledby="tab-registered" style="display: none;">
+                <div class="events-grid">
+                    {% for event in registeredEvents %}
+                        <article class="event-card has-background bg-{{ event.categorie|lower|replace({' ': ''}) }}" aria-labelledby="reg-event-title-{{ event.id }}">
+
+                            <div class="event-card-body">
+                                <h3 id="reg-event-title-{{ event.id }}">{{ event.name }}</h3>
+                                <p class="event-date" aria-label="Date de l'événement">📅 {{ event.dateHeure|date('d/m/Y à H:i') }}</p>
+                            </div>
+
+                            <div class="event-card-footer">
+                                <span class="capacity" aria-label="Capacité">👥 {{ event.capacite }} places</span>
+                                <a href="{{ path('app_event', {'id': event.id}) }}" class="btn-details" aria-label="Voir les détails de l'événement {{ event.name }}">Voir les détails</a>
+                            </div>
+
+                        </article>
+                    {% else %}
+                        <output class="no-events-profile">
+                            Vous n'êtes inscrit à aucun événement pour le moment.
+                            <a href="{{ path('app_accueil') }}" class="create-first-link">Parcourez les événements à l'affiche !</a>
+                        </output>
+                    {% endfor %}
+                </div>
             </div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function initProfileTabs() {
+            const tabCreated = document.getElementById('tab-created');
+            const tabRegistered = document.getElementById('tab-registered');
+            const panelCreated = document.getElementById('created-events-panel');
+            const panelRegistered = document.getElementById('registered-events-panel');
+
+            if (!tabCreated || !tabRegistered) return;
+
+            // Remove existing event listeners to avoid memory leaks or double registration
+            const newTabCreated = tabCreated.cloneNode(true);
+            const newTabRegistered = tabRegistered.cloneNode(true);
+            tabCreated.parentNode.replaceChild(newTabCreated, tabCreated);
+            tabRegistered.parentNode.replaceChild(newTabRegistered, tabRegistered);
+
+            newTabCreated.addEventListener('click', () => {
+                newTabCreated.classList.add('active');
+                newTabCreated.setAttribute('aria-selected', 'true');
+                newTabRegistered.classList.remove('active');
+                newTabRegistered.setAttribute('aria-selected', 'false');
+                panelCreated.style.display = 'block';
+                panelRegistered.style.display = 'none';
+            });
+
+            newTabRegistered.addEventListener('click', () => {
+                newTabRegistered.classList.add('active');
+                newTabRegistered.setAttribute('aria-selected', 'true');
+                newTabCreated.classList.remove('active');
+                newTabCreated.setAttribute('aria-selected', 'false');
+                panelCreated.style.display = 'none';
+                panelRegistered.style.display = 'block';
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initProfileTabs);
+        } else {
+            initProfileTabs();
+        }
+        document.addEventListener('turbo:load', initProfileTabs);
+    </script>
 {% endblock %}

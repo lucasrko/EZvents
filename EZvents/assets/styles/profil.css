@@ -195,3 +195,66 @@ a:focus, button:focus, .btn-profile-action:focus {
     text-transform: uppercase;
     z-index: 2;
 }
+
+.profile-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-logout {
+    display: inline-block;
+    background-color: var(--color-delete);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+
+.btn-logout:hover, .btn-logout:focus {
+    background-color: var(--color-delete-hover);
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 6px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-logout:active {
+    transform: scale(0.96);
+}
+
+/* --- SYSTEME D'ONGLETS --- */
+.profile-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-slate);
+    padding-bottom: 0.5rem;
+}
+
+.profile-tab {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+.profile-tab:hover {
+    color: #ffffff;
+}
+
+.profile-tab.active {
+    color: var(--accent-indigo-hover);
+    border-bottom-color: var(--accent-indigo);
+}
